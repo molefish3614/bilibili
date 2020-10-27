@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+/* border-box全局继承 */
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+/* li无点 */
+ul,
+li {
+    list-style: none;
+}
+/* a标签初始化 */
+a {
+    display: flex;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    white-space: nowrap;
+    background-color: transparent;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
