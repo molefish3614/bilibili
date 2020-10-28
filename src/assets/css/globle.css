@@ -30,12 +30,48 @@ li {
 }
 /* a标签初始化 */
 a {
-    display: flex;
-    color: #fff;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    color: #212121;
+    transition: color .3s;
     white-space: nowrap;
     background-color: transparent;
     text-decoration: none;
     outline: none;
     cursor: pointer;
+}
+/* 去掉Vue路由标签发光 */
+.router-link-active {
+    text-shadow: none;
+}
+/* 通用yel类 */
+.yel {
+    background: #fcba2a;
+}
+/* 通用blue */
+.blue {
+    background: #00a1d6;
+}
+.channel {
+    background: #6dc781;
+}
+.tab-line {
+    display: inline-block;
+    height: 46px;
+    border-left: 1px solid #e7e7e7;
+    margin: 0 20px
+}
+.none {
+    margin: 0 24px 0 0;
+}
+.bili-icon_dingdao_zhuzhan {
+    margin-right: 6px;
+    font-size: 18px!important;
+
+}
+.bili-icon_dingdao_xiazaiapp {
+    margin-right: 2px;
+    font-size: 18px!important;
+    vertical-align: middle;
+}
+.white-a a {
+    color: #fff;
 }

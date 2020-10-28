@@ -1,14 +1,14 @@
 <template>
 <div>
     <el-container>
-        <el-header height="263px" style="padding: 0">
+        <el-header height="100%" style="padding: 0">
             <div class="mini-header-banner" @mouseenter="bannerMouseEnter" @mousemove="bannerMouseMove" @mouseleave="bannerMouseLeave">
                 <div class="mini-header">
-                    <div class="mini-header-content">
+                    <div class="mini-header-content white-a">
                         <div class="nav-link">
                             <ul class="nav-link-ul">
                                 <li class="nav-link-item" :key="i" v-for="(item, i) in navItem">
-                                    <router-link :to="{ path: '/' }"><i v-if="item.hasIconfont" :class="item.iconfontName"></i>{{ item.name }}</router-link>
+                                    <router-link :to="{ path: '/' }"><i v-if="item.hasIconfont" :class="item.iconfontName"></i><span>{{ item.name }}</span></router-link>
                                 </li>
                             </ul>
                         </div>
@@ -58,6 +58,36 @@
                     </div>
                     <div class="logo">
                         <router-link to="/" class="head-logo"><img src="../assets/images/bilbili-autumn.png" style="width: 180px"></router-link>
+                    </div>
+                </div>
+            </div>
+            <div class="wrap">
+                <div class="primary-menu">
+                    <div class="page-tab white-a no-shadow">
+                        <ul class="con">
+                            <li :key="i" v-for="(item,i) in primaryPageTab">
+                                <router-link to="/">
+                                    <div class="round page-tab-round" :class="item.color !== '' ? item.color : ''"><i :class="item.fontName"></i></div><span class="black-a">{{ item.name}}</span>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="tab-line"></span>
+                    <div class="channel-menu">
+                        <span :key="i" v-for="(item, i) in primaryChannelMenu">
+                            <div class="channel-menu-item">
+                                <router-link :to="{path: '/'}" class="name"><span>{{item.name}}<em v-if="item.newCount !== ''">{{item.newCount}}</em></span>
+                                </router-link>
+                            </div>
+                        </span>
+                    </div>
+                    <span class="tab-line none"></span>
+                    <div class="friendship-link">
+                        <span :key="i" v-for="(item,i) in friendshipLink">
+                            <div class="item">
+                                <router-link :to="{path:'/'}" class="name hover-blue"><div class="icon-con"><img :src="item.image" class="svg-icon"></div><span>{{ item.name }}</span></router-link>
+                            </div>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -145,12 +175,123 @@ export default {
                     iconfontName: "",
                 },
                 {
-                    name: "会员购",
+                    name: "下载APP",
                     hasIconfont: true,
                     iconfontName: "bilifont bili-icon_dingdao_xiazaiapp",
                 },
             ],
             navSearchPlaceholder: '这是假数据，理论上这里的文本应该是从后台请求来的',
+            primaryPageTab: [{
+                name: '首页',
+                fontName: 'bilifont bili-icon_fenqudaohang_shouye',
+                color: ''
+            }, {
+                name: '动态',
+                fontName: 'bilifont bili-icon_dingdao_dongtai',
+                color: 'yel'
+            }, {
+                name: '排行榜',
+                fontName: 'bilifont bili-icon_fenqudaohang_paihangbang',
+                color: 'blue'
+            }, {
+                name: '频道',
+                fontName: 'bilifont bili-pindao',
+                color: 'channel'
+            }],
+            primaryChannelMenu: [{
+                    name: '动画',
+                    newCount: '999+'
+                },
+                {
+                    name: '音乐',
+                    newCount: '999+'
+                },
+                {
+                    name: '舞蹈',
+                    newCount: '834'
+                }, {
+                    name: '知识',
+                    newCount: '999+'
+                },
+                {
+                    name: '生活',
+                    newCount: '999+'
+                },
+                {
+                    name: '时尚',
+                    newCount: '999+'
+                },
+                {
+                    name: '娱乐',
+                    newCount: '999+'
+                },
+                {
+                    name: '放映厅',
+                    newCount: '77'
+                }, {
+                    name: '番剧',
+                    newCount: '137'
+                }, {
+                    name: '国创',
+                    newCount: '294'
+                }, {
+                    name: '游戏',
+                    newCount: '999+'
+                },
+                {
+                    name: '数码',
+                    newCount: '999+'
+                },
+                {
+                    name: '鬼畜',
+                    newCount: '94'
+                },
+                {
+                    name: '资讯',
+                    newCount: '440'
+                },
+                {
+                    name: '影视',
+                    newCount: '999+'
+                },
+                {
+                    name: '搞笑',
+                    newCount: '999+'
+                },
+                {
+                    name: '美食',
+                    newCount: '999+'
+                },
+                {
+                    name: 'VLOG',
+                    newCount: ''
+                },
+            ],
+            friendshipLink: [{
+                    name: '专栏',
+                    image: require('@/assets/images/article.png')
+                },
+                {
+                    name: '直播',
+                    image: require('@/assets/images/live.png')
+                },
+                {
+                    name: '活动',
+                    image: require('@/assets/images/activity.png')
+                },
+                {
+                    name: '课堂',
+                    image: require('@/assets/images/class.png')
+                },
+                {
+                    name: '小黑屋',
+                    image: require('@/assets/images/blackroom.png')
+                },
+                {
+                    name: '音乐PLUS',
+                    image: require('@/assets/images/musicplus.png')
+                }
+            ],
         };
     },
     created() {
@@ -163,8 +304,6 @@ export default {
     },
     methods: {
         bannerMouseEnter(e) {
-            console.log('进入');
-            this.outerTransition = '';
             this.inBannerMouseX = e.pageX;
             this.mouseLeaveBanner = false;
         },
@@ -192,7 +331,7 @@ export default {
                 blurChange4 = 4 - ((e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
                 blurChange4 = blurChange4 < 0 ? -blurChange4 : blurChange4;
             } else {
-                //一直增大到14
+                //4一直增大到14
                 blurChange4 = 4 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
             }
             let translateX4 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 36;
@@ -201,11 +340,11 @@ export default {
             // banner5
             let blurChange5 = 0;
             if (e.pageX - this.inBannerMouseX > 0) {
-                //5先减小后增大10
+                //5先减小后增大5
                 blurChange5 = 5 - ((e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
                 blurChange5 = blurChange5 < 0 ? -blurChange5 : blurChange5;
             } else {
-                //一直增大到15
+                //5一直增大到15
                 blurChange5 = 5 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
             }
             let translateX5 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 78;
@@ -251,32 +390,36 @@ export default {
                 },
             };
             this.inBannerMouseX = 0;
-            console.log('离开');
         },
-        async closeEye() {
+        closeEye() {
             this.bannerAnmiateData.banner2.src = this.banner2SrcHalf;
-            await this.common.sleep(50);
-            this.bannerAnmiateData.banner2.src = this.banner2SrcClose;
-            await this.common.sleep(50);
-            this.bannerAnmiateData.banner2.src = this.banner2SrcHalf;
-            await this.common.sleep(50);
-            this.bannerAnmiateData.banner2.src = this.banner2SrcOrigin;
+            this.common.sleep(50).then(() => {
+                this.bannerAnmiateData.banner2.src = this.banner2SrcClose;
+                return this.common.sleep(100)
+            }).then(() => {
+                this.bannerAnmiateData.banner2.src = this.banner2SrcHalf;
+                return this.common.sleep(50)
+            }).then(() => {
+                this.bannerAnmiateData.banner2.src = this.banner2SrcOrigin;
+            });
         }
     },
 };
 </script>
 
-<style lang="less" scope>
+<style lang="less">
 .el-header {
     position: relative;
 
     .mini-header-banner {
         position: relative;
+
         .mini-header {
             position: absolute;
             z-index: 1;
             width: 100%;
             height: 56px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .3) !important;
 
             .mini-header-content {
                 position: relative;
@@ -288,6 +431,8 @@ export default {
                 line-height: 30px;
 
                 .nav-link {
+                    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+
                     .nav-link-ul {
                         display: flex;
                         align-items: center;
@@ -295,6 +440,16 @@ export default {
 
                         .nav-link-item {
                             margin-right: 12px;
+
+                            i,
+                            span {
+                                vertical-align: middle;
+                            }
+
+                            i {
+                                line-height: 1px;
+                            }
+
                         }
                     }
                 }
@@ -454,8 +609,9 @@ export default {
                     display: flex;
                     align-items: center;
                     justify-content: center;
+
                     .img-transition {
-                        transition: transform .5s ease,filter .5s ease;
+                        transition: transform .5s ease, filter .5s ease;
                     }
                 }
             }
@@ -475,10 +631,127 @@ export default {
             }
         }
     }
+
+    .wrap {
+        width: 1630px;
+        margin: 0 auto;
+
+        .primary-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            width: 100%;
+
+            .page-tab-round {
+                margin: 0 14px 4px 14px;
+            }
+
+            .channel-menu {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                height: 5rem;
+                height: 68px;
+                flex: 1;
+
+                .channel-menu-item {
+                    cursor: pointer;
+                    display: flex;
+                    height: 34px;
+
+                    em {
+                        font-style: normal;
+                        font-size: 12px;
+                        display: inline-block;
+                        background: #73c9e5;
+                        border-radius: 2px;
+                        color: #fff;
+                        margin-left: 1px;
+                        transform: scale(.85);
+                        width: 32px;
+                        height: 14px;
+                        line-height: 14px;
+                        text-align: center;
+                    }
+                }
+            }
+
+            .friendship-link {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                height: 68px;
+                width: 289px;
+
+                .item {
+                    height: 34px;
+                    display: flex;
+                    .icon-con {
+                        width: 25px;
+                    }
+                    .svg-icon {
+                        vertical-align: middle;
+                        overflow: hidden;
+                    }
+
+                    span {
+                        margin-left: 4px;
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .banner-layer-1-enter-active {
     transition: all 0.5s;
+}
+
+.name {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.con {
+    display: flex;
+    text-align: center;
+
+    a:hover {
+        .black-a {
+            color: #1890ff;
+        }
+    }
+
+    i {
+        font-size: 28px;
+    }
+}
+
+.round {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    background: #ff5c7c;
+    border-radius: 36px;
+    line-height: 36px;
+    text-align: center;
+    margin: 0 auto 4px;
+}
+
+.black-a {
+    color: #212121;
+    transition: color .3s;
+}
+
+.hover-blue:hover {
+    span {
+        color: #00a1d6;
+        transition: color .3s;
+    }
 }
 
 .el-main {
