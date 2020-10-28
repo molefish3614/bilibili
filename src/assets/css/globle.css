@@ -47,31 +47,6 @@ a {
     text-shadow: none;
 }
 
-/* 通用yel类 */
-.yel {
-    background: #fcba2a;
-}
-
-/* 通用blue */
-.blue {
-    background: #00a1d6;
-}
-
-.channel {
-    background: #6dc781;
-}
-
-.tab-line {
-    display: inline-block;
-    height: 46px;
-    border-left: 1px solid #e7e7e7;
-    margin: 0 20px
-}
-
-.none {
-    margin: 0 24px 0 0;
-}
-
 .bili-icon_dingdao_zhuzhan {
     margin-right: 6px;
     font-size: 18px !important;
@@ -84,20 +59,7 @@ a {
     vertical-align: middle;
 }
 
-.white-a a {
-    color: #fff;
-}
-
-.el-footer {
-    width: 100%;
-    font: 12px 'Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei', sans-serif;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    background-color: #f6f9fa;
-    padding: 30px;
-}
-
+/* 全局鼠标滑过蓝光过渡 */
 .hover-blue:hover,
 .hover-blue:hover span,
 .hover-blue:hover p,
