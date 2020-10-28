@@ -3,6 +3,7 @@
     padding: 0;
     font-size: 14px;
 }
+
 /* border-box全局继承 */
 html {
     box-sizing: border-box;
@@ -23,11 +24,13 @@ html {
 *:after {
     box-sizing: inherit;
 }
+
 /* li无点 */
 ul,
 li {
     list-style: none;
 }
+
 /* a标签初始化 */
 a {
     color: #212121;
@@ -38,40 +41,67 @@ a {
     outline: none;
     cursor: pointer;
 }
+
 /* 去掉Vue路由标签发光 */
 .router-link-active {
     text-shadow: none;
 }
+
 /* 通用yel类 */
 .yel {
     background: #fcba2a;
 }
+
 /* 通用blue */
 .blue {
     background: #00a1d6;
 }
+
 .channel {
     background: #6dc781;
 }
+
 .tab-line {
     display: inline-block;
     height: 46px;
     border-left: 1px solid #e7e7e7;
     margin: 0 20px
 }
+
 .none {
     margin: 0 24px 0 0;
 }
+
 .bili-icon_dingdao_zhuzhan {
     margin-right: 6px;
-    font-size: 18px!important;
+    font-size: 18px !important;
 
 }
+
 .bili-icon_dingdao_xiazaiapp {
     margin-right: 2px;
-    font-size: 18px!important;
+    font-size: 18px !important;
     vertical-align: middle;
 }
+
 .white-a a {
     color: #fff;
+}
+
+.el-footer {
+    width: 100%;
+    font: 12px 'Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei', sans-serif;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-color: #f6f9fa;
+    padding: 30px;
+}
+
+.hover-blue:hover,
+.hover-blue:hover span,
+.hover-blue:hover p,
+.hover-blue:hover a {
+    color: #00a1d6 !important;
+    transition: color .3s !important;
 }
