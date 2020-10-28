@@ -56,7 +56,7 @@
                             <img src="../assets/images/banner6.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" height="207" width="2264" :style="`transform: translate(${bannerAnmiateData.banner6.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner6.blur}px);`" />
                         </div>
                     </div>
-                    <div class="logo">
+                    <div class="logo wrap">
                         <router-link to="/" class="head-logo"><img src="../assets/images/bilbili-autumn.png" style="width: 180px"></router-link>
                     </div>
                 </div>
@@ -94,7 +94,9 @@
                 </div>
             </div>
         </el-header>
-        <el-main>Main</el-main>
+        <el-main>
+            <router-view></router-view>
+        </el-main>
         <el-footer style="height: 100%">
             <div class="link-box footer-wrap">
                 <div class="footer-left">
@@ -114,7 +116,7 @@
                 <div class="footer-right">
                     <div class="link-item link-c">
                         <div class="a-wraper">
-                            <router-link :to="{path: '/'}" class="hover-blue"><i class="bili-footer-font bilifont bili-icon_download"></i>
+                            <router-link :to="{path: '/'}" class="hover-blue-ite1"><i class="bili-footer-font bilifont bili-icon_download"></i>
                                 <p>下载APP</p>
                             </router-link>
                         </div>
@@ -152,7 +154,7 @@
                         <span>营业性演出许可证 沪市文演（经）00-2253</span>
                     </p>
                     <p>违法不良信息举报邮箱：help@bilibili.com |违法不良信息举报电话：4000233233转3</p>
-                    <p ><i class="sprite bg1" :style="{backgroundImage: 'url('+spriteUrl+')'}"></i><a href="javascript:;" class="hover-blue">上海互联网举报中心</a> | <a href="javascript:;" class="hover-blue">12318全国文化市场举报网站</a> | <i class="sprite bg2"  :style="{backgroundImage: 'url('+spriteUrl+')'}"></i><a href="javascript:;" class="hover-blue">沪公网安备31011002002436号</a> | <a href="javascript:;" class="hover-blue">儿童色情信息举报专区</a> | <a href="javascript:;" class="hover-blue">扫黄打非举报</a></p>
+                    <p><i class="sprite bg1" :style="{backgroundImage: 'url('+spriteUrl+')'}"></i><a href="javascript:;" class="hover-blue">上海互联网举报中心</a> | <a href="javascript:;" class="hover-blue">12318全国文化市场举报网站</a> | <i class="sprite bg2" :style="{backgroundImage: 'url('+spriteUrl+')'}"></i><a href="javascript:;" class="hover-blue">沪公网安备31011002002436号</a> | <a href="javascript:;" class="hover-blue">儿童色情信息举报专区</a> | <a href="javascript:;" class="hover-blue">扫黄打非举报</a></p>
                     <p>网上有害信息举报专区：<i class="sprite bg3" :style="{backgroundImage: 'url('+spriteUrl+')'}"></i><a href="javascript:;" class="hover-blue">中国互联网违法和不良信息举报中心</a></p>
                     <p>亲爱的市民朋友，上海警方反诈劝阻电话“962110”系专门针对避免您财产被骗受损而设，请您一旦收到来电，立即接听。</p>
                     <p>公司名称：上海宽娱数码科技有限公司|公司地址：上海市杨浦区政立路485号|电话：021-25099888</p>
@@ -1070,6 +1072,61 @@ export default {
                 background-position: -18px -3px;
             }
         }
+    }
+}
+
+@media screen and (min-width: 0) and (max-width: 1438px) {
+
+    .el-header .wrap,
+    .el-footer .footer-wrap {
+        width: 1110px !important;
+    }
+}
+
+@media screen and (min-width: 1439px) and (max-width: 1654px) {
+
+    .el-header .wrap,
+    .el-footer .footer-wrap {
+        width: 1198px !important;
+    }
+}
+
+@media screen and (min-width: 1655px) and (max-width: 1870px) {
+
+    .el-header .wrap,
+    .el-footer .footer-wrap {
+        width: 1414px !important;
+    }
+}
+
+@media screen and (min-width: 0) and (max-width: 1654px) {
+    .el-header .wrap .friendship-link {
+        width: 220px !important;
+    }
+}
+
+@media screen and (min-width: 1655px) and (max-width: 1870px) {
+    .el-header .wrap .friendship-link {
+        width: 242px !important;
+    }
+}
+
+@media screen and (max-width: 1654px) {
+
+    .wrap .page-tab .con li {
+        width: 50px !important;
+    }
+    .wrap .page-tab .con li .round {
+        margin: 0 6px 4px 6px;
+    }
+}
+
+@media screen and (min-width: 1655px) and (max-width: 1870px) {
+    .wrap .page-tab .con li {
+        width: 58px !important;
+    }
+    .wrap .page-tab .con li .round {
+        margin: 0 10px 4px 10px;
     }
 }
 </style>
