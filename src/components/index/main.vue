@@ -1,12 +1,18 @@
 <template>
-  <div>123444444444444</div>
+  <div>
+      <recommend></recommend>
+  </div>
 </template>
 
 <script>
+import recommend from '@/components/index/main/recommend.vue'
 export default {
     data() { return {
         
-    }}
+    }},
+    components:{
+      recommend
+    }
 }
 </script>
 

@@ -65,7 +65,7 @@
                 <ul class="con">
                     <li :key="i" v-for="(item,i) in primaryPageTab">
                         <router-link to="/">
-                            <div class="round page-tab-round" :class="item.color !== '' ? item.color : ''"><i :class="item.fontName"></i></div><span class="black-a">{{ item.name}}</span>
+                            <div class="round page-tab-round" :class="item.color ? item.color : ''"><i :class="item.fontName"></i></div><span class="black-a">{{ item.name}}</span>
                         </router-link>
                     </li>
                 </ul>
@@ -741,9 +741,4 @@ export default {
     transition: color .3s;
 }
 
-.wrap {
-    position: relative;
-    width: 1630px;
-    margin: 0 auto;
-}
 </style>

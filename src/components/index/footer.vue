@@ -323,10 +323,4 @@ export default {
         }
     }
 }
-
-.footer-wrap {
-    max-width: 1630px;
-    min-width: 999px;
-    margin: 0 auto;
-}
 </style>

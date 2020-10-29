@@ -72,3 +72,76 @@ a {
     color: #00a1d6 !important;
     transition: color .3s !important;
 }
+
+/* 通用yel类 */
+.yel {
+    background: #fcba2a !important;
+}
+
+/* 通用blue */
+.blue {
+    background: #00a1d6 !important;
+}
+
+.channel {
+    background: #6dc781 !important;
+}
+
+.tab-line {
+    display: inline-block;
+    height: 46px;
+    border-left: 1px solid #e7e7e7;
+    margin: 0 20px
+}
+
+.van-swipe__indicators {
+    position: absolute;
+    left: auto;
+    right: 12px !important;
+    bottom: 12px;
+    z-index: 10;
+    transform: translateX(0);
+    cursor: default
+}
+
+.van-swipe__indicator {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 0 !important;
+    width: 10px;
+    height: 10px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #fff;
+    opacity: 1;
+    transition: all .2s;
+}
+
+.van-swipe__indicator:hover {
+    border: 2px solid #fff;
+    background-color: #00a1d6;
+    transform: scale(1.3);
+}
+
+.van-swipe .van-swipe__indicator--active {
+    border-width: 0;
+    border-color: transparent;
+    background-image: url('../../static/icon_slide_selected.png') !important;
+    background-color: transparent !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: scale(1.8);
+}
+
+.home-slide .item:before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    border-radius: 2px;
+    background-image: url('../../static/col_shadow.png');
+    content: "";
+}
