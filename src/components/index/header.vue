@@ -21,6 +21,9 @@
                     </div>
                 </div>
                 <div class="nav-user-center">
+                    <div class="user-con search-icon">
+                        <router-link :to="{path:'/'}"><i class="bilifont bili-icon_dingdao_sousuo"></i></router-link>
+                    </div>
                     <ul class="user-con">
                         <li class="user-con-item mini-avatar">
                             <img :src="avatar" />
@@ -36,22 +39,22 @@
         <div class="banner">
             <div class="animated-banner">
                 <div class="layer">
-                    <img :class="mouseLeaveBanner ? 'img-transition' : ''" src="@/assets/images/banner1.png" data-height="250" data-width="3000" height="290" width="3483" :style="`filter: blur(${bannerAnmiateData.banner1.blur}px); transform: translate(0px, 0px) rotate(0deg);`" />
+                    <img :class="mouseLeaveBanner ? 'img-transition' : ''" src="@/assets/images/banner1.png" data-height="250" data-width="3000" :height="bannerAnmiateData.banner1.height + 'px'" :width="bannerAnmiateData.banner1.width + 'px'" :style="`filter: blur(${bannerAnmiateData.banner1.blur}px); transform: translate(0px, 0px) rotate(0deg);`" />
                 </div>
                 <div class="layer">
-                    <img :src="bannerAnmiateData.banner2.src" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" height="191" width="2090" :style="`transform: translate(${bannerAnmiateData.banner2.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner2.blur}px);`" />
+                    <img :src="bannerAnmiateData.banner2.src" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" :height="bannerAnmiateData.banner2.height + 'px'" :width="bannerAnmiateData.banner2.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner2.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner2.blur}px);`" />
                 </div>
                 <div class="layer">
-                    <img src="@/assets/images/banner3.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="250" data-width="3000" height="290" width="3483" :style="`transform: translate(${bannerAnmiateData.banner3.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner3.blur}px);`" />
+                    <img src="@/assets/images/banner3.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="250" data-width="3000" :height="bannerAnmiateData.banner3.height + 'px'" :width="bannerAnmiateData.banner3.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner3.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner3.blur}px);`" />
                 </div>
                 <div class="layer">
-                    <img src="@/assets/images/banner4.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="250" data-width="3000" height="174" width="2090" :style="`transform: translate(${bannerAnmiateData.banner4.translateX}px, 4.2px) rotate(0deg); filter: blur(${bannerAnmiateData.banner4.blur}px);`" />
+                    <img src="@/assets/images/banner4.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="250" data-width="3000" :height="bannerAnmiateData.banner4.height + 'px'" :width="bannerAnmiateData.banner4.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner4.translateX}px, 4.2px) rotate(0deg); filter: blur(${bannerAnmiateData.banner4.blur}px);`" />
                 </div>
                 <div class="layer">
-                    <img src="@/assets/images/banner5.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" height="191" width="2090" :style="`transform: translate(${bannerAnmiateData.banner5.translateX}px, -1.8px) rotate(0deg); filter: blur(${bannerAnmiateData.banner5.blur}px);`" />
+                    <img src="@/assets/images/banner5.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" :height="bannerAnmiateData.banner5.height + 'px'" :width="bannerAnmiateData.banner5.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner5.translateX}px, -1.8px) rotate(0deg); filter: blur(${bannerAnmiateData.banner5.blur}px);`" />
                 </div>
                 <div class="layer">
-                    <img src="@/assets/images/banner6.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" height="207" width="2264" :style="`transform: translate(${bannerAnmiateData.banner6.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner6.blur}px);`" />
+                    <img src="@/assets/images/banner6.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" :height="bannerAnmiateData.banner6.height + 'px'" :width="bannerAnmiateData.banner6.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner6.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner6.blur}px);`" />
                 </div>
             </div>
             <div class="logo wrap">
@@ -101,29 +104,43 @@ export default {
             navSearchForm: {
                 text: "",
             },
+            screenWidth: 1366,
+            lock: 1,
             // banner动画数据存储
             bannerAnmiateData: {
                 banner1: {
+                    width: 3000,
+                    height: 250,
                     blur: 4,
                 },
                 banner2: {
+                    width: 1800,
+                    height: 165,
                     blur: 0,
                     translateX: 0,
                     src: require('@/assets/images/banner2.png'), // 动态引入图片地址，@表示项目根目录
                 },
                 banner3: {
+                    width: 3000,
+                    height: 250,
                     blur: 1,
                     translateX: -50,
                 },
                 banner4: {
+                    width: 1800,
+                    height: 150,
                     blur: 4,
                     translateX: 0,
                 },
                 banner5: {
+                    width: 1800,
+                    height: 165,
                     blur: 5,
                     translateX: 0,
                 },
                 banner6: {
+                    width: 1950,
+                    height: 178,
                     blur: 6,
                     translateX: 0,
                 },
@@ -292,11 +309,55 @@ export default {
         }
     },
     mounted() {
+        this.screenWidth = document.documentElement.clientWidth;
+
+        this.bannerSelfAd();
+        setInterval(() => {
+            if (this.lock > 0) this.lock--;
+        }, 10);
+        const that = this; // 备份this指向至that
+        window.addEventListener("resize", function () {
+            that.screenWidth = document.documentElement.clientWidth; // 触发立即更新尺寸数据
+            if (that.lock === 0) {
+                that.bannerSelfAd();
+                that.lock = 1
+            }
+        });
         setInterval(() => {
             this.closeEye();
         }, 3000)
     },
     methods: {
+        bannerSelfAd() {
+            if (this.screenWidth < 1366) return;
+            if (this.screenWidth <= 1920) {
+                this.bannerAnmiateData.banner1.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner1.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner2.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner2.height = 165 + (191 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner3.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner3.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner4.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner4.height = 150 + (174 - 150) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner5.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner5.height = 165 + (191 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner6.width = 1950 + (2264 - 1950) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner6.height = 178 + (207 - 178) / (1920 - 1366) * (this.screenWidth - 1366);
+            } else {
+                this.bannerAnmiateData.banner1.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner1.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner2.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner2.height = 165 + (210 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner3.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner3.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner4.width = 1800 + (2190 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner4.height = 150 + (194 - 150) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner5.width = 1800 + (2190 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner5.height = 165 + (206 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner6.width = 1950 + (2300 - 1950) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnmiateData.banner6.height = 178 + (217 - 178) / (1920 - 1366) * (this.screenWidth - 1366);
+            }
+        },
         bannerMouseEnter(e) {
             this.inBannerMouseX = e.pageX;
             this.mouseLeaveBanner = false;
@@ -357,32 +418,17 @@ export default {
         },
         async bannerMouseLeave() {
             this.mouseLeaveBanner = true;
-            this.bannerAnmiateData = {
-                banner1: {
-                    blur: 4,
-                },
-                banner2: {
-                    blur: 0,
-                    translateX: 0,
-                    src: require("@/assets/images/banner2.png")
-                },
-                banner3: {
-                    blur: 1,
-                    translateX: -50,
-                },
-                banner4: {
-                    blur: 4,
-                    translateX: 0,
-                },
-                banner5: {
-                    blur: 5,
-                    translateX: 0,
-                },
-                banner6: {
-                    blur: 6,
-                    translateX: 0,
-                },
-            };
+            this.bannerAnmiateData.banner1.blur = 4;
+            this.bannerAnmiateData.banner2.blur = 0;
+            this.bannerAnmiateData.banner2.translateX = 0;
+            this.bannerAnmiateData.banner3.blur = 1;
+            this.bannerAnmiateData.banner3.translateX = -50;
+            this.bannerAnmiateData.banner4.blur = 4;
+            this.bannerAnmiateData.banner4.translateX = 0;
+            this.bannerAnmiateData.banner5.blur = 5;
+            this.bannerAnmiateData.banner5.translateX = 0;
+            this.bannerAnmiateData.banner6.blur = 6;
+            this.bannerAnmiateData.banner6.translateX = 0;
             this.inBannerMouseX = 0;
         },
         closeEye() {
@@ -525,32 +571,27 @@ export default {
                 display: flex;
                 flex-shrink: 0;
 
-                .user-con {
+                .user-con-item {
+                    position: relative;
                     display: flex;
-                    align-items: center;
+                    margin-left: 12px;
+                    cursor: pointer;
+                }
 
-                    .user-con-item {
-                        position: relative;
-                        display: flex;
-                        margin-left: 12px;
-                        cursor: pointer;
-                    }
+                .mini-avatar {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    position: relative;
+                    margin-right: 10px;
 
-                    .mini-avatar {
-                        width: 36px;
-                        height: 36px;
+                    img {
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
                         border-radius: 50%;
-                        position: relative;
-                        margin-right: 10px;
-
-                        img {
-                            position: absolute;
-                            top: 0;
-                            width: 100%;
-                            height: 100%;
-                            border-radius: 50%;
-                            transition: 0.2s;
-                        }
+                        transition: 0.2s;
                     }
                 }
             }
@@ -741,4 +782,23 @@ export default {
     transition: color .3s;
 }
 
+.user-con {
+    display: flex;
+    align-items: center;
+}
+
+.mini-header-content .nav-user-center .user-con.search-icon {
+    display: none;
+}
+
+.nav-user-center .user-con.search-icon .bilifont {
+    font-size: 20px;
+}
+
+.nav-user-center .bilifont {
+    color: #fff;
+    vertical-align: middle;
+    font-size: 28px;
+    cursor: pointer;
+}
 </style>

@@ -42,6 +42,11 @@ a {
     cursor: pointer;
 }
 
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
 /* 去掉Vue路由标签发光 */
 .router-link-active {
     text-shadow: none;
@@ -144,4 +149,54 @@ a {
     border-radius: 2px;
     background-image: url('../../static/col_shadow.png');
     content: "";
+}
+
+.video-card-reco:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    background-image: url('../../static/col_shadow.png');
+    background-repeat: repeat-x;
+    border-radius: 0 0 2px 2px;
+}
+
+.video-card-reco .info-box {
+    position: relative;
+    overflow: hidden;
+    background-image: url('../../static/ico-image.png');
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.watchlater {
+    position: absolute;
+    z-index: 20;
+    width: 22px;
+    height: 22px;
+    right: 8px;
+    bottom: 8px;
+    cursor: pointer;
+    background-size: contain;
+}
+
+.watchlater.black {
+    width: 28px;
+    height: 28px;
+    background-image: url('../../static/watchlater.png');
+}
+
+.video-card-common .card-pic a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 48px;
+    background-image: url('../../static/col_shadow.png');
+    background-repeat: repeat-x;
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
 }

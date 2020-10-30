@@ -53,44 +53,83 @@ footer {
     padding: 30px !important;
 }
 
-// 宽度自适应与媒体查询
+// 宽度自适应
+.wrap {
+    position: relative;
+    width: 1630px;
+    margin: 0 auto;
+}
 
+.footer-wrap {
+    max-width: 1630px;
+    min-width: 999px;
+    margin: 0 auto;
+}
+
+// index媒体查询集合
+// wrap结构宽度自适应
 @media screen and (min-width: 0) and (max-width: 1438px) {
 
-    header .wrap,
-    footer .footer-wrap {
-        width: 1110px !important;
+    .wrap,
+    .footer-wrap {
+        width: 999px !important;
     }
 }
 
 @media screen and (min-width: 1439px) and (max-width: 1654px) {
 
-    header .wrap,
-    footer .footer-wrap {
+    .wrap,
+    .footer-wrap {
         width: 1198px !important;
     }
 }
 
 @media screen and (min-width: 1655px) and (max-width: 1870px) {
 
-    .header .wrap,
-    footer .footer-wrap {
+    .wrap,
+    .footer-wrap {
         width: 1414px !important;
     }
 }
 
+// wrap结构宽度自适应
+
+// header媒体查询开始
+// header的搜索框自适应消失显示
+@media screen and (max-width: 1190px) {
+
+    .mini-header .nav-user-center .user-con.search-icon {
+        display: flex !important;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 1190px) {
+
+    .mini-header .nav-search-box {
+        display: none;
+    }
+}
+
+// 头部导航右侧的友情链接部分宽度自适应
 @media screen and (min-width: 0) and (max-width: 1654px) {
-    header .wrap .friendship-link {
+    .wrap .friendship-link {
         width: 220px !important;
     }
 }
 
 @media screen and (min-width: 1655px) and (max-width: 1870px) {
-    header .wrap .friendship-link {
+    .wrap .friendship-link {
         width: 242px !important;
     }
 }
+// 
+// 头部中间的导航列表区适应宽度没有做
+// 头部中间的导航列表区适应宽度没有做
+// 头部中间的导航列表区适应宽度没有做
+//
 
+// 头部导航左侧的圆形按钮宽度自适应
 @media screen and (max-width: 1654px) {
 
     .wrap .page-tab .con li {
@@ -112,15 +151,168 @@ footer {
     }
 }
 
-.wrap {
-    position: relative;
-    width: 1630px;
-    margin: 0 auto;
+// header媒体查询结束
+
+// recommend媒体查询开始
+// 推荐1屏轮播图宽高自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .focus-carousel,
+    .wrap .focus-carousel {
+        width: 459px !important;
+        height: 202px !important;
+    }
 }
 
-.footer-wrap {
-    max-width: 1630px;
-    min-width: 999px;
-    margin: 0 auto;
+// 推荐1屏视频图片父盒子宽高自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .recommend-box,
+    .wrap .recommend-box {
+        width: 530px;
+        height: 202px;
+    }
+}
+
+@media screen and (min-width: 1439px) and (max-width: 1654px) {
+
+    .footer-wrap .recommend-box,
+    .wrap .recommend-box {
+        width: 638px;
+    }
+}
+
+@media screen and (min-width: 1655px) and (max-width: 1870px) {
+
+    .footer-wrap .recommend-box,
+    .wrap .recommend-box {
+        width: 854px;
+        height: 242px;
+    }
+}
+
+// 推荐1屏视频图片宽高自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .recommend-box .video-card-reco,
+    .wrap .recommend-box .video-card-reco {
+        width: 170px;
+        height: 96px;
+    }
+}
+
+// 推荐1屏视频图片数量自适应
+@media screen and (max-width: 1654px) {
+
+    .footer-wrap .recommend-box .video-card-reco:nth-child(n+7),
+    .wrap .recommend-box .video-card-reco:nth-child(n+7) {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1655px) and (max-width: 1870px) {
+
+    .footer-wrap .recommend-box .video-card-reco:nth-child(n+9),
+    .wrap .recommend-box .video-card-reco:nth-child(n+9) {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .recommend-box .video-card-reco .info-box .info,
+    .wrap .recommend-box .video-card-reco .info-box .info {
+        padding: 8px 10px 10px;
+    }
+}
+
+// 推荐屏视频宽度自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .extension,
+    .wrap .extension {
+        width: 710px;
+    }
+}
+
+@media screen and (min-width: 1439px) and (max-width: 1654px) {
+
+    .footer-wrap .extension,
+    .wrap .extension {
+        width: 854px;
+    }
+}
+
+@media screen and (min-width: 1655px) and (max-width: 1870px) {
+
+    .footer-wrap .extension,
+    .wrap .extension {
+        width: 1070px;
+    }
+}
+
+// 推荐屏图片宽高自适应宽度
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .video-card-common,
+    .wrap .video-card-common {
+        width: 170px;
+    }
+}
+
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .video-card-common .card-pic,
+    .footer-wrap .video-card-common .match-card-pic,
+    .wrap .video-card-common .card-pic,
+    .wrap .video-card-common .match-card-pic {
+        width: 100%;
+        height: 96px;
+    }
+}
+
+// 推荐屏右侧图片
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .bypb-window,
+    .wrap .bypb-window {
+        width: 265px;
+    }
+}
+
+// 推荐屏视频内时间显示位置适应宽度
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .video-card-common .card-pic .right,
+    .footer-wrap .video-card-common .match-card-pic .right,
+    .wrap .video-card-common .card-pic .right,
+    .wrap .video-card-common .match-card-pic .right {
+        display: none;
+    }
+}
+
+// 推荐屏单个视频图宽高、数量自适应宽度
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .video-card-common,
+    .wrap .video-card-common {
+        width: 170px;
+    }
+}
+
+@media screen and (max-width: 1654px) {
+
+    .footer-wrap .extension .video-card-common:nth-child(n+5),
+    .wrap .extension .video-card-common:nth-child(n+5) {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1655px) and (max-width: 1870px) {
+
+    .footer-wrap .extension .video-card-common:nth-child(n+6),
+    .wrap .extension .video-card-common:nth-child(n+6) {
+        display: none;
+    }
 }
 </style>
