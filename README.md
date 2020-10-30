@@ -36,11 +36,11 @@ primaryPageTab: [{
 
 ## 效果展示
 
-​		1、宽屏状态（完整显示）<img src="E:\个人文件夹\Documents\个人仓库\bilibili\bilibili\showImages\1.png" style="zoom:50%;" />
+​		1、宽屏状态（完整显示）<img src="https://github.com/chinchan-mole/bilibili/blob/master/showImages/1.png" style="zoom:50%;" />
 
 ​		2、屏幕缩小（顶部搜索栏变化、展示数量/尺寸改变）
 
-<img src="E:\个人文件夹\Documents\个人仓库\bilibili\bilibili\showImages\2.png" style="zoom: 67%;" />
+<img src="https://github.com/chinchan-mole/bilibili/blob/master/showImages/2.png" style="zoom: 67%;" />
 
 ## 项目部署到本地
 
