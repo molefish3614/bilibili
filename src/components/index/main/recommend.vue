@@ -32,17 +32,17 @@
         <div class="extension">
             <div class="storey-title">
                 <div class="l-con">
-                    <i class="svg-icon bilifont bili-tuiguang"></i>
-                    <a target="_blank" class="name no-link">推广</a>
+                    <i class="svg-icon bilifont bili-tuiguang" :style="{color: extendsData.iconColor}"></i>
+                    <a target="_blank" class="name no-link">{{extendsData.title}}</a>
                     <div class="text-info">
                         <router-link :to="{path:'/'}" class="text-info-link hover-blue"><i class="bilifont bili-icon_xinxi_huo"></i>
-                            双十一百万现金等你来
+                            {{extendsData.notice}}
                         </router-link>
                     </div>
                 </div>
             </div>
             <div class="ext-box">
-                <div class="video-card-common" :key="i" v-for="(item,i) in extendsData">
+                <div class="video-card-common" :key="i" v-for="(item,i) in extendsData.data">
                     <div class="card-pic">
                         <router-link :to="{path: item.link}">
                             <img :src="item.img" width="206" height="116">
@@ -73,7 +73,7 @@
             <div class="storey-title">
                 <div class="l-con">
                     <img :src="lolLiveData.icon" class="sprite">
-                    <a target="_blank" class="name no-link">2020英雄联盟全球总决赛</a>
+                    <a target="_blank" class="name no-link">{{lolLiveData.title}}</a>
                 </div>
             </div>
             <div class="ext-box">
@@ -159,15 +159,6 @@ export default {
                     show: 'none'
                 },
                 {
-                    title: '职业教练带你复盘半决赛TES究竟输在哪里',
-                    img: require('@/assets/images/recommends/4.webp'),
-                    playCount: '16.1万播放',
-                    upName: 'GFlamingo',
-                    link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
-                },
-                {
                     title: '【湊-阿库娅】Take Over - 所向无前',
                     img: require('@/assets/images/recommends/5.webp'),
                     playCount: '406.3万播放',
@@ -190,6 +181,15 @@ export default {
                     img: require('@/assets/images/recommends/7.webp'),
                     playCount: '14.5万播放',
                     upName: '钟文泽',
+                    link: '/',
+                    isWatchlaterEnter: false,
+                    show: 'none'
+                },
+                {
+                    title: '职业教练带你复盘半决赛TES究竟输在哪里',
+                    img: require('@/assets/images/recommends/4.webp'),
+                    playCount: '16.1万播放',
+                    upName: 'GFlamingo',
                     link: '/',
                     isWatchlaterEnter: false,
                     show: 'none'
@@ -431,15 +431,6 @@ export default {
                     show: 'none'
                 },
                 {
-                    title: '职业教练带你复盘半决赛TES究竟输在哪里',
-                    img: require('@/assets/images/recommends/4.webp'),
-                    playCount: '16.1万播放',
-                    upName: 'GFlamingo',
-                    link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
-                },
-                {
                     title: '【湊-阿库娅】Take Over - 所向无前',
                     img: require('@/assets/images/recommends/5.webp'),
                     playCount: '406.3万播放',
@@ -462,6 +453,15 @@ export default {
                     img: require('@/assets/images/recommends/7.webp'),
                     playCount: '14.5万播放',
                     upName: '钟文泽',
+                    link: '/',
+                    isWatchlaterEnter: false,
+                    show: 'none'
+                },
+                {
+                    title: '职业教练带你复盘半决赛TES究竟输在哪里',
+                    img: require('@/assets/images/recommends/4.webp'),
+                    playCount: '16.1万播放',
+                    upName: 'GFlamingo',
                     link: '/',
                     isWatchlaterEnter: false,
                     show: 'none'
@@ -494,73 +494,79 @@ export default {
                     show: 'none'
                 }
             ],
-            extendsData: [{
-                    title: '超人气up主竟组团打call，神秘应援一探究竟！',
-                    img: require('@/assets/images/extends/1.jpg'),
-                    time: '07:19',
-                    upName: '梦想养成计划',
-                    link: '/',
-                    uplink: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
-                },
-                {
-                    title: '“风犬少年”周游：刘闻钦的结局把我手机搞炸了',
-                    img: require('@/assets/images/extends/2.png'),
-                    time: '13:47',
-                    upName: '哔斯卡金像奖',
-                    link: '/',
-                    uplink: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
-                },
-                {
-                    title: '【琴】 大 姐 姐 ，琴 【原神】',
-                    img: require('@/assets/images/extends/3.webp'),
-                    time: '01:08',
-                    upName: '瑟瑟发抖小韭菜',
-                    link: '/',
-                    uplink: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
-                },
-                {
-                    title: '全网最高级出行方式，郑爽和李现祝您旅途愉快~',
-                    img: require('@/assets/images/extends/4.jpg'),
-                    time: '01:00',
-                    upName: '地摊小表妹',
-                    link: '/',
-                    uplink: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
-                },
-                {
-                    title: '耗时上百~你也想起舞嘛？燃爆踩点盛宴-Edge of My Life',
-                    img: require('@/assets/images/extends/5.webp'),
-                    time: '02:17',
-                    upName: '苦瓜是甜的雪乃',
-                    link: '/',
-                    uplink: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
-                },
-                {
-                    title: '自制小电视手办，四万三千两百种表情自动秒换，每一秒都不重样',
-                    img: require('@/assets/images/extends/6.jpg'),
-                    time: '07:33',
-                    upName: '司马好奇',
-                    link: '/',
-                    uplink: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
-                },
-            ],
+            extendsData: {
+                title: '推广',
+                notice: '双十一百万现金等你来',
+                iconColor: '#FFD778',
+                data: [{
+                        title: '超人气up主竟组团打call，神秘应援一探究竟！',
+                        img: require('@/assets/images/extends/1.jpg'),
+                        time: '07:19',
+                        upName: '梦想养成计划',
+                        link: '/',
+                        uplink: '/',
+                        isWatchlaterEnter: false,
+                        show: 'none'
+                    },
+                    {
+                        title: '“风犬少年”周游：刘闻钦的结局把我手机搞炸了',
+                        img: require('@/assets/images/extends/2.png'),
+                        time: '13:47',
+                        upName: '哔斯卡金像奖',
+                        link: '/',
+                        uplink: '/',
+                        isWatchlaterEnter: false,
+                        show: 'none'
+                    },
+                    {
+                        title: '【琴】 大 姐 姐 ，琴 【原神】',
+                        img: require('@/assets/images/extends/3.webp'),
+                        time: '01:08',
+                        upName: '瑟瑟发抖小韭菜',
+                        link: '/',
+                        uplink: '/',
+                        isWatchlaterEnter: false,
+                        show: 'none'
+                    },
+                    {
+                        title: '全网最高级出行方式，郑爽和李现祝您旅途愉快~',
+                        img: require('@/assets/images/extends/4.jpg'),
+                        time: '01:00',
+                        upName: '地摊小表妹',
+                        link: '/',
+                        uplink: '/',
+                        isWatchlaterEnter: false,
+                        show: 'none'
+                    },
+                    {
+                        title: '耗时上百~你也想起舞嘛？燃爆踩点盛宴-Edge of My Life',
+                        img: require('@/assets/images/extends/5.webp'),
+                        time: '02:17',
+                        upName: '苦瓜是甜的雪乃',
+                        link: '/',
+                        uplink: '/',
+                        isWatchlaterEnter: false,
+                        show: 'none'
+                    },
+                    {
+                        title: '自制小电视手办，四万三千两百种表情自动秒换，每一秒都不重样',
+                        img: require('@/assets/images/extends/6.jpg'),
+                        time: '07:33',
+                        upName: '司马好奇',
+                        link: '/',
+                        uplink: '/',
+                        isWatchlaterEnter: false,
+                        show: 'none'
+                    },
+                ]
+            },
             operateData: {
                 notice: '这次会有什么惊喜？',
                 img: require('@/assets/images/extends/operate.png'),
                 url: '/'
             },
             lolLiveData: {
+                title: '2020英雄联盟全球总决赛',
                 icon: require('@/assets/images/extends/S10.png'),
                 activeImgUrl: require('@/assets/images/extends/active.png'),
                 activeNotices: '投稿最高可参与瓜分56W现金！',
@@ -635,7 +641,7 @@ export default {
         // 通过for...of...遍历DOM集合给indicator添加index自定义属性以便点击indicator时获取到index
         this.$nextTick(() => {
             setTimeout(() => {
-                let indicators = document.querySelector('.van-swipe__indicators').children;
+                let indicators = document.querySelector('.focus-carousel .ggc .van-swipe__indicators').children;
                 let i = 0;
                 for (let item of indicators) {
                     item.setAttribute('data-index', i);
@@ -729,17 +735,6 @@ export default {
             height: 100%;
         }
     }
-}
-
-.ggc>div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: inline-block;
-    overflow: hidden;
-    z-index: 0;
 }
 
 .home-slide .item .title {
@@ -946,34 +941,6 @@ export default {
     vertical-align: middle;
     fill: currentColor;
     font-size: 36px;
-    color: #FFD778;
-}
-
-.storey-title .name {
-    margin: 0 20px 0 0;
-    vertical-align: bottom;
-    font-size: 20px;
-    line-height: 36px;
-}
-
-.storey-title .no-link {
-    color: #212121;
-    cursor: default;
-}
-
-.storey-title .text-info {
-    color: #505050;
-    line-height: 36px;
-
-    a {
-        font-size: 12px;
-        color: #505050;
-    }
-}
-
-.storey-title .text-info a .bilifont {
-    margin-right: 3px;
-    color: #f0361b;
 }
 
 .extension .ext-box {
@@ -1112,6 +1079,4 @@ export default {
 .ggpos {
     padding-top: 52px;
 }
-
-
 </style>

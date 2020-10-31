@@ -3,7 +3,7 @@
     <header height="100%" style="padding: 0">
         <header-content></header-content>
     </header>
-    <main class="first-screen wrap">
+    <main>
         <main-content>
         </main-content>
     </main>
@@ -51,6 +51,12 @@ footer {
     padding: 0;
     background-color: #f6f9fa;
     padding: 30px !important;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
 }
 
 // 宽度自适应
@@ -123,6 +129,7 @@ footer {
         width: 242px !important;
     }
 }
+
 // 
 // 头部中间的导航列表区适应宽度没有做
 // 头部中间的导航列表区适应宽度没有做
@@ -313,6 +320,114 @@ footer {
     .footer-wrap .extension .video-card-common:nth-child(n+6),
     .wrap .extension .video-card-common:nth-child(n+6) {
         display: none;
+    }
+}
+
+// recommend媒体查询结束
+
+// storey 媒体查询开始
+
+// 直播视频父盒子宽度自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .zone-list-box,
+    .wrap .zone-list-box {
+        width: 710px !important;
+        height: 360px;
+    }
+}
+
+@media screen and (min-width: 1439px) and (max-width: 1654px) {
+
+    .footer-wrap .zone-list-box,
+    .wrap .zone-list-box {
+        width: 854px !important;
+    }
+}
+
+@media screen and (min-width: 1655px)  and (max-width: 1870px) {
+
+    .footer-wrap .space-between .zone-list-box,
+    .wrap .space-between .zone-list-box {
+        width: 1070px;
+    }
+}
+
+// 单个live card宽度自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .zone-list-box .live-card,
+    .wrap .zone-list-box .live-card {
+        width: 170px;
+    }
+}
+
+// livecard 下图片宽度自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .zone-list-box .live-card .pic,
+    .wrap .zone-list-box .live-card .pic {
+        width: 100%;
+        height: 96px;
+    }
+}
+
+// livecard下 说明文本宽度自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .live-card .up .txt,
+    .wrap .live-card .up .txt {
+        width: 128px;
+    }
+}
+
+// -2个直播视频数自适应n+11代表不需要宽度1870以下  11 12两个子元素
+@media screen and (min-width: 1655px) and (max-width: 1870px) {
+
+    .footer-wrap .space-between .zone-list-box .live-card:nth-child(n+11),
+    .footer-wrap .space-between .zone-list-box .video-card-common:nth-child(n+11),
+    .wrap .space-between .zone-list-box .live-card:nth-child(n+11),
+    .wrap .space-between .zone-list-box .video-card-common:nth-child(n+11) {
+        display: none;
+    }
+}
+
+// -4个直播视频数自适应n+9代表宽度1654以下不需要 9 10 11 12四个子元素
+@media screen and (max-width: 1654px) {
+
+    .footer-wrap .zone-list-box .live-card:nth-child(n+9),
+    .footer-wrap .zone-list-box .video-card-common:nth-child(n+9),
+    .wrap .zone-list-box .live-card:nth-child(n+9),
+    .wrap .zone-list-box .video-card-common:nth-child(n+9) {
+        display: none;
+    }
+}
+
+// 直播右侧tab区宽度自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .live-tabs,
+    .wrap .live-tabs {
+        width: 265px;
+    }
+}
+
+// 直播排行当个rank尺寸自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .live-tabs .live-rank .live-rank-item,
+    .wrap .live-tabs .live-rank .live-rank-item {
+        margin-bottom: 16px;
+    }
+}
+
+// 为你推荐宽度自适应
+@media screen and (max-width: 1438px) {
+
+    .footer-wrap .recommend-activity,
+    .wrap .recommend-activity {
+        width: 265px !important;
+        height: 286px !important;
     }
 }
 </style>
