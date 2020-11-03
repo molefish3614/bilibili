@@ -4,17 +4,17 @@
         <div class="focus-carousel home-slide">
             <van-swipe ref="swipe" class="ggc" :autoplay="6000" style="width: 550px; height: 242px;" :indicator-color="'#ffffff'" @click.native="swipeClickHandle">
                 <van-swipe-item class="item" v-for="(item, index) in imagesData" :key="index">
-                    <router-link :to="{path: '/'}"><img v-lazy="item.path" :alt="item.title" />
+                    <router-link :to="{path: '/'}" target="_blank"><img v-lazy="item.path" :alt="item.title" />
                         <p class="title">{{item.title}}</p>
                     </router-link>
                 </van-swipe-item>
             </van-swipe>
-            <router-link :to="{path: '/'}" class="more">更多<i class="bilifont bili-icon_caozuo_qianwang"></i></router-link>
+            <router-link :to="{path: '/'}" class="more" target="_blank">更多<i class="bilifont bili-icon_caozuo_qianwang"></i></router-link>
         </div>
         <div class="recommend-box">
             <div class="video-card-reco" :key="i" v-for="(item, i) in recommendBoxData">
                 <div class="info-box">
-                    <router-link :to="{path: item.link}"><img :src="item.img" alt="item.title">
+                    <router-link :to="{path: item.link}" target="_blank"><img :src="item.img" alt="item.title">
                         <div class="info">
                             <p title="item.title" class="title">{{item.title}}</p>
                             <p class="up"><i class="bilifont bili-icon_xinxi_UPzhu"></i>{{item.upName}}</p>
@@ -35,7 +35,7 @@
                     <i class="svg-icon bilifont bili-tuiguang" :style="{color: extendsData.iconColor}"></i>
                     <a target="_blank" class="name no-link">{{extendsData.title}}</a>
                     <div class="text-info">
-                        <router-link :to="{path:'/'}" class="text-info-link hover-blue"><i class="bilifont bili-icon_xinxi_huo"></i>
+                        <router-link :to="{path:'/'}" class="text-info-link hover-blue" target="_blank"><i class="bilifont bili-icon_xinxi_huo"></i>
                             {{extendsData.notice}}
                         </router-link>
                     </div>
@@ -44,7 +44,7 @@
             <div class="ext-box">
                 <div class="video-card-common" :key="i" v-for="(item,i) in extendsData.data">
                     <div class="card-pic">
-                        <router-link :to="{path: item.link}">
+                        <router-link :to="{path: item.link}" target="_blank">
                             <img :src="item.img" width="206" height="116">
                             <div class="count">
                                 <div class="left"></div>
@@ -52,11 +52,11 @@
                                     <span>{{item.time}}</span>
                                 </div>
                             </div>
-                            <p class="ex-title hover-blue">{{item.title}}</p>
+                            <p class="ex-title hover-blue" :title="item.title">{{item.title}}</p>
                         </router-link>
                         <div class="watch-later-video watchlater black" @mouseenter="watchlaterEnter(item)" @mouseleave="watchlaterLeave(item)"><span class="wl-tips" :class="item.isWatchlaterEnter ? 'watchlater-move-enter-active' : ''" :style="{left: '-21px', display: item.show}">稍后再看</span></div>
                     </div>
-                    <router-link :to="{path:item.uplink}" class="ex-up hover-blue"><i class="bilifont bili-icon_xinxi_UPzhu"></i>{{item.upName}}
+                    <router-link :to="{path:item.uplink}" class="ex-up hover-blue" target="_blank"><i class="bilifont bili-icon_xinxi_UPzhu"></i>{{item.upName}}
                     </router-link>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             <div class="ext-box">
                 <div class="video-card-common" :key="i" v-for="(item,i) in lolLiveData.data">
                     <div class="card-pic">
-                        <router-link :to="{path: item.url}">
+                        <router-link :to="{path: item.url}" target="_blank">
                             <img :src="item.img" width="206" height="116">
                             <div class="count">
                                 <div class="left">
@@ -89,7 +89,7 @@
                                     <span>{{item.time}}</span>
                                 </div>
                             </div>
-                            <p class="ex-title hover-blue">{{item.title}}</p>
+                            <p class="ex-title hover-blue" :title="item.title">{{item.title}}</p>
                         </router-link>
                         <div class="watch-later-video watchlater black" @mouseenter="watchlaterEnter(item)" @mouseleave="watchlaterLeave(item)"><span class="wl-tips" :class="item.isWatchlaterEnter ? 'watchlater-move-enter-active' : ''" :style="{left: '-21px', display: item.show}">稍后再看</span></div>
                     </div>
@@ -694,24 +694,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.watchlater-move-enter-active {
-    animation: bounce-in .26s
-}
-
-@keyframes bounce-in {
-    0% {
-        transform: scale(0)
-    }
-
-    50% {
-        transform: scale(1.1)
-    }
-
-    to {
-        transform: scale(1)
-    }
-}
-
 .space-between {
     display: flex;
     justify-content: space-between;
@@ -817,6 +799,7 @@ export default {
     opacity: 0;
 }
 
+// 标题没升起需要white-space: nowrap;禁止换行
 .video-card-reco .info-box .info .title {
     font-size: 14px;
     line-height: 18px;
@@ -828,7 +811,7 @@ export default {
     white-space: nowrap;
     font-weight: 500;
 }
-
+// 标题升起后需要white-space: normal开启换行
 .video-card-reco:hover .info-box .info .title {
     height: 36px;
     white-space: normal;
@@ -868,19 +851,6 @@ export default {
 .video-card-reco:hover .watch-later-video {
     transition-delay: .2s;
     opacity: 1;
-}
-
-.watchlater .wl-tips {
-    position: absolute;
-    font-size: 12px;
-    color: #fff;
-    border-radius: 4px;
-    line-height: 18px;
-    padding: 4px 8px;
-    background-color: #000;
-    background: rgba(0, 0, 0, .8);
-    white-space: nowrap;
-    top: -30px;
 }
 
 .recommend-box .btn {
@@ -949,63 +919,6 @@ export default {
     justify-content: space-between;
 }
 
-.video-card-common {
-    width: 206px;
-    cursor: pointer;
-}
-
-.video-card-common .card-pic {
-    position: relative;
-    width: 100%;
-    height: 116px;
-}
-
-.video-card-common .card-pic a {
-    display: block;
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.video-card-common .card-pic a img {
-    width: 100%;
-    height: 100%;
-    border-radius: 2px;
-}
-
-.video-card-common .bilifont {
-    margin-right: 4px;
-    vertical-align: middle;
-}
-
-.video-card-common .card-pic a .count {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 6px 8px;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    color: #fff;
-    line-height: 16px;
-}
-
-.video-card-common .card-pic a .count,
-.video-card-common .card-pic a .count .left,
-.video-card-common .card-pic a .count .left span {
-    display: flex;
-    align-items: center;
-}
-
-.video-card-common .card-pic .watch-later-video {
-    transition: opacity .3s;
-    opacity: 0;
-}
-
-.video-card-common .card-pic:hover .watch-later-video {
-    transition-delay: .2s;
-    opacity: 1;
-}
-
 .video-card-common .ex-title {
     display: block;
     font-size: 14px;
@@ -1016,7 +929,6 @@ export default {
     text-overflow: ellipsis;
     font-weight: 500;
     padding-right: 12px;
-    white-space: normal;
 }
 
 .video-card-common .ex-up {

@@ -43,6 +43,10 @@ header {
     position: relative;
 }
 
+main {
+    margin-bottom: 40px
+}
+
 footer {
     width: 100%;
     font: 12px 'Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei', sans-serif;
@@ -130,11 +134,13 @@ footer {
     }
 }
 
-// 
-// 头部中间的导航列表区适应宽度没有做
-// 头部中间的导航列表区适应宽度没有做
-// 头部中间的导航列表区适应宽度没有做
-//
+// 头部中间的导航列表区数量适应宽度
+@media screen and (max-width: 1438px) {
+
+    .wrap .primary-menu .channel-menu span:nth-child(n+17) {
+        display: none;
+    }
+}
 
 // 头部导航左侧的圆形按钮宽度自适应
 @media screen and (max-width: 1654px) {
@@ -345,7 +351,7 @@ footer {
     }
 }
 
-@media screen and (min-width: 1655px)  and (max-width: 1870px) {
+@media screen and (min-width: 1655px) and (max-width: 1870px) {
 
     .footer-wrap .space-between .zone-list-box,
     .wrap .space-between .zone-list-box {
@@ -428,6 +434,66 @@ footer {
     .wrap .recommend-activity {
         width: 265px !important;
         height: 286px !important;
+    }
+}
+
+// 右侧排行榜整体宽度自适应
+@media screen and (max-width: 1438px) {
+    .rank-list {
+        width: 265px !important;
+    }
+}
+
+// 排行榜每条宽度自适应
+@media screen and (max-width: 1438px) {
+
+    .rank-list .rank-wrap .preview,
+    .rank-list .rank-wrap .title {
+        width: 235px;
+    }
+}
+
+// 排行榜数量自适应宽度（11、12窄屏不需要）
+@media screen and (max-width: 1438px) {
+    .rank-list .rank-wrap:nth-child(n+10) {
+        display: none;
+    }
+}
+
+//右侧电梯导航位置随宽度自适应
+@media screen and (max-width: 1122px) {
+    .wrap .elevator {
+        margin-left: 500px;
+    }
+}
+
+@media screen and (min-width: 1123px) and (max-width: 1200px) {
+    .wrap .elevator {
+        margin-left: 510px;
+    }
+}
+
+@media screen and (min-width: 1201px) and (max-width: 1438px) {
+
+    .footer-wrap .elevator,
+    .wrap .elevator {
+        margin-left: 515px;
+    }
+}
+
+@media screen and (min-width: 1439px) and (max-width: 1654px) {
+
+    .footer-wrap .elevator,
+    .wrap .elevator {
+        margin-left: 615px;
+    }
+}
+
+@media screen and (min-width: 1655px) and (max-width: 1870px) {
+
+    .footer-wrap .elevator,
+    .wrap .elevator {
+        margin-left: 716px;
     }
 }
 </style>

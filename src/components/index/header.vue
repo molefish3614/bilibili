@@ -6,7 +6,7 @@
                 <div class="nav-link">
                     <ul class="nav-link-ul">
                         <li class="nav-link-item" :key="i" v-for="(item, i) in navItem">
-                            <router-link :to="{ path: '/' }"><i v-if="item.hasIconfont" :class="item.iconfontName"></i><span>{{ item.name }}</span></router-link>
+                            <router-link :to="{ path: item.url }" class="link"><i v-if="item.hasIconfont" :class="item.iconfontName"></i><span>{{ item.name }}</span></router-link>
                         </li>
                     </ul>
                 </div>
@@ -29,7 +29,7 @@
                             <img :src="avatar" />
                         </li>
                         <li :key="index" v-for="(item, index) in userCon" class="user-con-item">
-                            <router-link :to="{ path: '/' }">{{ item }}</router-link>
+                            <router-link :to="{ path: item.url }">{{ item.name }}</router-link>
                         </li>
                     </ul>
                     <el-button type="danger" class="upload">投稿</el-button>
@@ -57,6 +57,7 @@
                     <img src="@/assets/images/banner6.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" :height="bannerAnmiateData.banner6.height + 'px'" :width="bannerAnmiateData.banner6.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner6.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner6.blur}px);`" />
                 </div>
             </div>
+            <div class="taper-line"></div>
             <div class="logo wrap">
                 <router-link to="/" class="head-logo"><img src="@/assets/images/bilbili-autumn.png" style="width: 180px"></router-link>
             </div>
@@ -67,7 +68,7 @@
             <div class="page-tab white-a no-shadow">
                 <ul class="con">
                     <li :key="i" v-for="(item,i) in primaryPageTab">
-                        <router-link to="/">
+                        <router-link to="/" target="_blank">
                             <div class="round page-tab-round" :class="item.color ? item.color : ''"><i :class="item.fontName"></i></div><span class="black-a">{{ item.name}}</span>
                         </router-link>
                     </li>
@@ -77,7 +78,7 @@
             <div class="channel-menu">
                 <span :key="i" v-for="(item, i) in primaryChannelMenu">
                     <div class="channel-menu-item">
-                        <router-link :to="{path: '/'}" class="name hover-blue"><span>{{item.name}}<em v-if="item.newCount !== ''">{{item.newCount}}</em></span>
+                        <router-link :to="{path: '/'}" class="name hover-blue" target="_blank"><span>{{item.name}}<em v-if="item.newCount !== ''">{{item.newCount}}</em></span>
                         </router-link>
                     </div>
                 </span>
@@ -86,7 +87,7 @@
             <div class="friendship-link">
                 <span :key="i" v-for="(item,i) in friendshipLink">
                     <div class="item">
-                        <router-link :to="{path:'/'}" class="name hover-blue">
+                        <router-link :to="{path:'/'}" class="name hover-blue" target="_blank">
                             <div class="icon-con"><img :src="item.image" class="svg-icon"></div><span>{{ item.name }}</span>
                         </router-link>
                     </div>
@@ -152,49 +153,75 @@ export default {
             banner2SrcClose: require('@/assets/images/banner2-close.png'),
             avatar: require('@/assets/images/avatar.png'),
             // 假数据
-            userCon: ["大会员", "消息", "动态", "收藏", "历史", "创作中心"],
+            userCon: [{
+                name: '大会员',
+                url: '/big'
+            }, {
+                name:'消息',
+                url: '/message'
+            }, {
+                name:'动态',
+                url: '/trend'
+            }, {
+                name:'收藏',
+                url: '/favlist'
+            }, {
+                name:'历史',
+                url: '/history'
+            }, {
+                name:'创作中心',
+                url: '/member'
+            }],
             navItem: [{
-                    name: "主站",
+                    name: '主站',
                     hasIconfont: true,
-                    iconfontName: "bilifont bili-icon_dingdao_zhuzhan",
+                    url: '/',
+                    iconfontName: 'bilifont bili-icon_dingdao_zhuzhan',
                 },
                 {
-                    name: "番剧",
+                    name: '番剧',
                     hasIconfont: false,
-                    iconfontName: "",
+                    url: 'anime',
+                    iconfontName: '',
                 },
                 {
-                    name: "游戏中心",
+                    name: '游戏中心',
                     hasIconfont: false,
-                    iconfontName: "",
+                    url: '/gamecenter',
+                    iconfontName: '',
                 },
                 {
-                    name: "直播",
+                    name: '直播',
                     hasIconfont: false,
-                    iconfontName: "",
+                    url: '/live',
+                    iconfontName: '',
                 },
                 {
-                    name: "会员购",
+                    name: '会员购',
                     hasIconfont: false,
-                    iconfontName: "",
+                    url: '/shop',
+                    iconfontName: '',
                 },
                 {
-                    name: "漫画",
+                    name: '漫画',
                     hasIconfont: false,
-                    iconfontName: "",
+                    url: '/manga',
+                    iconfontName: '',
                 },
                 {
-                    name: "赛事",
+                    name: '赛事',
                     hasIconfont: false,
-                    iconfontName: "",
+                    url: '/match',
+                    iconfontName: '',
                 },
                 {
-                    name: "下载APP",
+                    name: '下载APP',
                     hasIconfont: true,
-                    iconfontName: "bilifont bili-icon_dingdao_xiazaiapp",
+                    url: '/app',
+                    iconfontName: 'bilifont bili-icon_dingdao_xiazaiapp',
                 },
             ],
-            navSearchPlaceholder: '都是假数据,没有后台哈哈哈',
+            navSearchPlaceholder: '都是写死的假数据而已',
             primaryPageTab: [{
                 name: '首页',
                 fontName: 'bilifont bili-icon_fenqudaohang_shouye',
@@ -214,71 +241,102 @@ export default {
             }],
             primaryChannelMenu: [{
                     name: '动画',
-                    newCount: '999+'
+                    newCount: '999+',
+                    path: '/'
+                },
+                {
+                    name: '番剧',
+                    newCount: '137',
+                    path: '/'
                 },
                 {
                     name: '音乐',
-                    newCount: '999+'
+                    newCount: '999+',
+                    path: '/'
+                },
+                {
+                    name: '国创',
+                    newCount: '294',
+                    path: '/'
                 },
                 {
                     name: '舞蹈',
-                    newCount: '834'
+                    newCount: '834',
+                    path: '/'
+                },
+                {
+                    name: '游戏',
+                    newCount: '999+',
+                    path: '/'
                 }, {
                     name: '知识',
-                    newCount: '999+'
-                },
-                {
-                    name: '生活',
-                    newCount: '999+'
-                },
-                {
-                    name: '时尚',
-                    newCount: '999+'
-                },
-                {
-                    name: '娱乐',
-                    newCount: '999+'
-                },
-                {
-                    name: '放映厅',
-                    newCount: '77'
-                }, {
-                    name: '番剧',
-                    newCount: '137'
-                }, {
-                    name: '国创',
-                    newCount: '294'
-                }, {
-                    name: '游戏',
-                    newCount: '999+'
+                    newCount: '999+',
+                    path: '/'
                 },
                 {
                     name: '数码',
-                    newCount: '999+'
+                    newCount: '999+',
+                    path: '/'
+                },
+                {
+                    name: '生活',
+                    newCount: '999+',
+                    path: '/'
                 },
                 {
                     name: '鬼畜',
-                    newCount: '94'
+                    newCount: '94',
+                    path: '/'
+                },
+                {
+                    name: '时尚',
+                    newCount: '999+',
+                    path: '/'
                 },
                 {
                     name: '资讯',
-                    newCount: '440'
+                    newCount: '440',
+                    path: '/'
+                },
+                {
+                    name: '娱乐',
+                    newCount: '999+',
+                    path: '/'
                 },
                 {
                     name: '影视',
-                    newCount: '999+'
+                    newCount: '999+',
+                    path: '/'
+                },
+                {
+                    name: '放映厅',
+                    newCount: '77',
+                    path: '/'
                 },
                 {
                     name: '搞笑',
-                    newCount: '999+'
+                    newCount: '999+',
+                    path: '/'
+                },
+                {
+                    name: '动物圈',
+                    newCount: '999+',
+                    path: '/'
                 },
                 {
                     name: '美食',
-                    newCount: '999+'
+                    newCount: '999+',
+                    path: '/'
+                },
+                {
+                    name: '单机游戏',
+                    newCount: '999+',
+                    path: '/'
                 },
                 {
                     name: 'VLOG',
-                    newCount: ''
+                    newCount: '',
+                    path: '/'
                 },
             ],
             friendshipLink: [{
@@ -316,7 +374,7 @@ export default {
             if (this.lock > 0) this.lock--;
         }, 10);
         const that = this; // 备份this指向至that
-        window.addEventListener("resize", function () {
+        window.addEventListener('resize', function () {
             that.screenWidth = document.documentElement.clientWidth; // 触发立即更新尺寸数据
             if (that.lock === 0) {
                 that.bannerSelfAd();
@@ -484,10 +542,11 @@ export default {
                         i,
                         span {
                             vertical-align: middle;
+                            font-size: 14px;
                         }
 
                         i {
-                            line-height: 1px;
+                            line-height: 30px;
                         }
 
                     }
@@ -576,6 +635,10 @@ export default {
                     display: flex;
                     margin-left: 12px;
                     cursor: pointer;
+
+                    a {
+                        font-size: 14px;
+                    }
                 }
 
                 .mini-avatar {
@@ -691,19 +754,23 @@ export default {
             display: flex;
             height: 34px;
 
-            em {
-                font-style: normal;
-                font-size: 12px;
-                display: inline-block;
-                background: #73c9e5;
-                border-radius: 2px;
-                color: #fff;
-                margin-left: 1px;
-                transform: scale(.85);
-                width: 32px;
-                height: 14px;
-                line-height: 14px;
-                text-align: center;
+            span {
+                font-size: 14px;
+
+                em {
+                    font-style: normal;
+                    font-size: 12px;
+                    display: inline-block;
+                    background: #73c9e5;
+                    border-radius: 2px;
+                    color: #fff;
+                    margin-left: 1px;
+                    transform: scale(.85);
+                    width: 32px;
+                    height: 14px;
+                    line-height: 14px;
+                    text-align: center;
+                }
             }
         }
     }
@@ -731,6 +798,7 @@ export default {
             span {
                 margin-left: 4px;
                 vertical-align: middle;
+                font-size: 14px;
             }
         }
     }
@@ -800,5 +868,24 @@ export default {
     vertical-align: middle;
     font-size: 28px;
     cursor: pointer;
+}
+
+.nav-link .nav-link-ul .nav-link-item .link {
+    font-size: 14px;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    white-space: nowrap;
+    display: flex;
+}
+
+.banner .taper-line {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(rgba(0, 0, 0, .4), transparent);
 }
 </style>
