@@ -52,13 +52,13 @@ npm run build  // 打包项目
 ```
 
 ## 项目计划
-1、主页展示（ing...）
+1、主页展示（basic done）
 
 2、个人空间（plan）
 
 3、动态（plan）
 
-4、消息（plan）
+4、消息（ing...）
 
 5、个人中心（plan）
 
