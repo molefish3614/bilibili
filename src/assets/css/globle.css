@@ -46,9 +46,35 @@ img {
     border-style: none;
 }
 
+em,
+i {
+    font-style: normal;
+}
+
 /* 去掉Vue路由标签发光 */
 .router-link-active {
     text-shadow: none;
+}
+
+input,
+textarea {
+    outline: none;
+}
+
+.num {
+    min-width: 16px;
+    height: 16px;
+    padding: 0 3px;
+    border-radius: 8px;
+    line-height: 16px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    top: -7px;
+    right: -10px;
+    z-index: 30;
+    background-color: #FA5A57;
 }
 
 .bili-icon_dingdao_zhuzhan {
@@ -221,20 +247,6 @@ img {
     background-image: url('../../static/sliver.png');
 }
 
-/* 排行榜显示动作 */
-/* .pvc-fade-enter {
-    transform: translateY(0px);
-    opacity: 1;
-    transition: all .2s ease;
-
-}
-
-.pvc-fade-leave {
-    transform: translateY(5px);
-    opacity: 0;
-    transition: all .2s ease;
-} */
-
 #douga .storey-title .l-con .svg-icon {
     background-image: url('../../static/icon-douga.png');
     background-repeat: no-repeat;
@@ -254,4 +266,16 @@ img {
     background-image: url('../../static/tab2233.png');
     background-repeat: no-repeat;
     background-position: 16px 20px;
+}
+
+/* 首页结束 */
+.icon {
+    display: inline-block;
+    background-image: url('../../static/tip-icons.png');
+}
+
+.h .m-level {
+    background-image: url('../../static/level.png');
+    background-repeat: no-repeat;
+    background-position: 999px 999px;
 }

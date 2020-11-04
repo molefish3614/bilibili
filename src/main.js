@@ -5,7 +5,6 @@ import store from './store'
 import './plugins/element.js'
 import '../src/assets/css/globle.css'
 import './assets/font/bilifont/bilifont.css'
-import common from './assets/js/common.js'
 import {
   Swipe,
   SwipeItem,
@@ -14,9 +13,14 @@ import {
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(Lazyload);
-
+router.beforeEach((to, from, next) => {
+  /* 路由发生变化修改页面title */
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
+})
 Vue.config.productionTip = false
-Vue.prototype.common = common
 new Vue({
   router,
   store,

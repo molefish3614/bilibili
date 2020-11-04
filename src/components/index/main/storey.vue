@@ -296,6 +296,9 @@
 </template>
 
 <script>
+import {
+    throttle
+} from "@/utils/index.js" // 引入节流函数
 export default {
     data() {
         return {
@@ -1229,6 +1232,7 @@ export default {
         }
     },
     mounted() {
+        let that = this;
         this.$nextTick(() => {
             setTimeout(() => {
                 let indicators = document.querySelector('.home-slide .van-slide .van-swipe__indicators').children;
@@ -1240,8 +1244,8 @@ export default {
                 this.tabsDisplay = ['block', 'none', 'none'];
             })
         });
-        // 由于右侧电梯需要和滚屏配合，在mount函数中给window注册滚动事件来控制电梯滑动
-        window.addEventListener('scroll', () => {
+        // 由于右侧电梯需要和滚屏配合，在mount函数中给window注册滚动事件来控制电梯滑动,同时需要节流控制触发频率
+        window.addEventListener('scroll', throttle(function () {
             const elevatorDOM = document.querySelector('#elevator');
             if (window.pageYOffset < 296) { // top值变小
                 elevatorDOM.style.top = 288 - window.pageYOffset + 'px';
@@ -1250,26 +1254,32 @@ export default {
                 let viewPortHeight = window.innerHeight; // 获得视口高度
                 // 遍历数组获得卷去高度所能达到的最低处的DOM index,
                 let index = -1;
-                this.elevatorFloorOffset.forEach((item, i) => {
+                that.elevatorFloorOffset.forEach((item, i) => {
                     if (document.documentElement.scrollTop + (viewPortHeight / 2) > item) {
                         index = i;
                     }
                 });
                 //同样用排他思想重置on类即可
-                this.elevatorData.forEach((item, index, arr) => {
+                that.elevatorData.forEach((item, index, arr) => {
                     arr[index].scrollCurrent = false;
                 });
                 if (index != -1) { // 如果index还是初始值-1，就表示页面滚动还没有到楼层区,不需要改变
-                    this.elevatorData[index].scrollCurrent = true
+                    that.elevatorData[index].scrollCurrent = true
                 }
             }
-
-        });
+        }, 20));
 
         // DOM出来之后计算所有楼层到页面顶部距离
         this.getFloorOffsetTop();
-        // 电梯导航的依赖高度在浏览器窗口尺寸变化后需要更新数据
-        window.addEventListener('resize', this.getFloorOffsetTop());
+        // 电梯导航的依赖高度在浏览器窗口尺寸变化后需要更新数据，同时也需要节流控制频率(最好用时间戳节流，保证最后一次操作可以执行)
+        window.addEventListener('resize', throttle(function () {
+            that.elevatorFloorOffset = [];
+            for (let i = 0; i < that.elevatorData.length; i++) {
+                const proxyBox = document.querySelector('.proxy-box');
+                const boxOffsetTop = proxyBox.children[i].getBoundingClientRect().top + document.documentElement.scrollTop;
+                that.elevatorFloorOffset.push(boxOffsetTop);
+            }
+        }, 1000));
     },
     methods: {
         swipeClickHandle(e) {
@@ -2039,6 +2049,7 @@ export default {
     background-color: #00a1d6;
     color: #fff;
 }
+
 // PVC的淡入淡出
 .pvc-fade-enter,
 .pvc-fade-leave-to {

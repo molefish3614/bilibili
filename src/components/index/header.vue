@@ -6,7 +6,7 @@
                 <div class="nav-link">
                     <ul class="nav-link-ul">
                         <li class="nav-link-item" :key="i" v-for="(item, i) in navItem">
-                            <router-link :to="{ path: item.url }" class="link"><i v-if="item.hasIconfont" :class="item.iconfontName"></i><span>{{ item.name }}</span></router-link>
+                            <router-link :to="{ path: item.url }" class="link" target="_blank"><i v-if="item.hasIconfont" :class="item.iconfontName"></i><span>{{ item.name }}</span></router-link>
                         </li>
                     </ul>
                 </div>
@@ -22,14 +22,16 @@
                 </div>
                 <div class="nav-user-center">
                     <div class="user-con search-icon">
-                        <router-link :to="{path:'/'}"><i class="bilifont bili-icon_dingdao_sousuo"></i></router-link>
+                        <router-link :to="{path:'/'}" target="_blank"><i class="bilifont bili-icon_dingdao_sousuo"></i></router-link>
                     </div>
                     <ul class="user-con">
                         <li class="user-con-item mini-avatar">
-                            <img :src="avatar" />
+                            <router-link :to="{ name:userCon.userSpace, params: { id: userCon.id }}" target="_blank"> <img :src="userCon.avatar" /></router-link>
                         </li>
-                        <li :key="index" v-for="(item, index) in userCon" class="user-con-item">
-                            <router-link :to="{ path: item.url }">{{ item.name }}</router-link>
+                        <li :key="index" v-for="(item, index) in userCon.data" class="user-con-item">
+                            <router-link :to="{ path: item.url }" target="_blank">{{ item.name }}
+                                <div v-if="item.name === '消息' || item.name === '动态'" class="num">{{item.num}}</div>
+                            </router-link>
                         </li>
                     </ul>
                     <el-button type="danger" class="upload">投稿</el-button>
@@ -39,22 +41,22 @@
         <div class="banner">
             <div class="animated-banner">
                 <div class="layer">
-                    <img :class="mouseLeaveBanner ? 'img-transition' : ''" src="@/assets/images/banner1.png" data-height="250" data-width="3000" :height="bannerAnmiateData.banner1.height + 'px'" :width="bannerAnmiateData.banner1.width + 'px'" :style="`filter: blur(${bannerAnmiateData.banner1.blur}px); transform: translate(0px, 0px) rotate(0deg);`" />
+                    <img :class="mouseLeaveBanner ? 'img-transition' : ''" src="@/assets/images/banner1.png" data-height="250" data-width="3000" :height="bannerAnimateData.banner1.height + 'px'" :width="bannerAnimateData.banner1.width + 'px'" :style="`filter: blur(${bannerAnimateData.banner1.blur}px); transform: translate(0px, 0px) rotate(0deg);`" />
                 </div>
                 <div class="layer">
-                    <img :src="bannerAnmiateData.banner2.src" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" :height="bannerAnmiateData.banner2.height + 'px'" :width="bannerAnmiateData.banner2.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner2.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner2.blur}px);`" />
+                    <img :src="bannerAnimateData.banner2.src" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" :height="bannerAnimateData.banner2.height + 'px'" :width="bannerAnimateData.banner2.width + 'px'" :style="`transform: translate(${bannerAnimateData.banner2.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnimateData.banner2.blur}px);`" />
                 </div>
                 <div class="layer">
-                    <img src="@/assets/images/banner3.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="250" data-width="3000" :height="bannerAnmiateData.banner3.height + 'px'" :width="bannerAnmiateData.banner3.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner3.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner3.blur}px);`" />
+                    <img src="@/assets/images/banner3.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="250" data-width="3000" :height="bannerAnimateData.banner3.height + 'px'" :width="bannerAnimateData.banner3.width + 'px'" :style="`transform: translate(${bannerAnimateData.banner3.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnimateData.banner3.blur}px);`" />
                 </div>
                 <div class="layer">
-                    <img src="@/assets/images/banner4.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="250" data-width="3000" :height="bannerAnmiateData.banner4.height + 'px'" :width="bannerAnmiateData.banner4.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner4.translateX}px, 4.2px) rotate(0deg); filter: blur(${bannerAnmiateData.banner4.blur}px);`" />
+                    <img src="@/assets/images/banner4.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="250" data-width="3000" :height="bannerAnimateData.banner4.height + 'px'" :width="bannerAnimateData.banner4.width + 'px'" :style="`transform: translate(${bannerAnimateData.banner4.translateX}px, 4.2px) rotate(0deg); filter: blur(${bannerAnimateData.banner4.blur}px);`" />
                 </div>
                 <div class="layer">
-                    <img src="@/assets/images/banner5.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" :height="bannerAnmiateData.banner5.height + 'px'" :width="bannerAnmiateData.banner5.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner5.translateX}px, -1.8px) rotate(0deg); filter: blur(${bannerAnmiateData.banner5.blur}px);`" />
+                    <img src="@/assets/images/banner5.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" :height="bannerAnimateData.banner5.height + 'px'" :width="bannerAnimateData.banner5.width + 'px'" :style="`transform: translate(${bannerAnimateData.banner5.translateX}px, -1.8px) rotate(0deg); filter: blur(${bannerAnimateData.banner5.blur}px);`" />
                 </div>
                 <div class="layer">
-                    <img src="@/assets/images/banner6.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" :height="bannerAnmiateData.banner6.height + 'px'" :width="bannerAnmiateData.banner6.width + 'px'" :style="`transform: translate(${bannerAnmiateData.banner6.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnmiateData.banner6.blur}px);`" />
+                    <img src="@/assets/images/banner6.png" :class="mouseLeaveBanner ? 'img-transition' : ''" data-height="275" data-width="3000" :height="bannerAnimateData.banner6.height + 'px'" :width="bannerAnimateData.banner6.width + 'px'" :style="`transform: translate(${bannerAnimateData.banner6.translateX}px, 0px) rotate(0deg); filter: blur(${bannerAnimateData.banner6.blur}px);`" />
                 </div>
             </div>
             <div class="taper-line"></div>
@@ -99,6 +101,10 @@
 </template>
 
 <script>
+import {
+    sleep,
+    throttle
+} from '@/utils/index.js' // 引入睡眠和节流函数
 export default {
     data() {
         return {
@@ -108,7 +114,7 @@ export default {
             screenWidth: 1366,
             lock: 1,
             // banner动画数据存储
-            bannerAnmiateData: {
+            bannerAnimateData: {
                 banner1: {
                     width: 3000,
                     height: 250,
@@ -151,27 +157,33 @@ export default {
             banner2SrcOrigin: require('@/assets/images/banner2.png'),
             banner2SrcHalf: require('@/assets/images/banner2-half.png'),
             banner2SrcClose: require('@/assets/images/banner2-close.png'),
-            avatar: require('@/assets/images/avatar.png'),
             // 假数据
-            userCon: [{
-                name: '大会员',
-                url: '/big'
-            }, {
-                name:'消息',
-                url: '/message'
-            }, {
-                name:'动态',
-                url: '/trend'
-            }, {
-                name:'收藏',
-                url: '/favlist'
-            }, {
-                name:'历史',
-                url: '/history'
-            }, {
-                name:'创作中心',
-                url: '/member'
-            }],
+            userCon: {
+                id: 114514,
+                avatar: require('@/assets/images/avatar.png'),
+                userSpace: 'space',
+                data: [{
+                    name: '大会员',
+                    url: '/big'
+                }, {
+                    name: '消息',
+                    url: '/message',
+                    num: '99+'
+                }, {
+                    name: '动态',
+                    url: '/trend',
+                    num: '22'
+                }, {
+                    name: '收藏',
+                    url: '/favlist'
+                }, {
+                    name: '历史',
+                    url: '/history'
+                }, {
+                    name: '创作中心',
+                    url: '/member'
+                }]
+            },
             navItem: [{
                     name: '主站',
                     hasIconfont: true,
@@ -368,7 +380,6 @@ export default {
     },
     mounted() {
         this.screenWidth = document.documentElement.clientWidth;
-
         this.bannerSelfAd();
         setInterval(() => {
             if (this.lock > 0) this.lock--;
@@ -389,116 +400,119 @@ export default {
         bannerSelfAd() {
             if (this.screenWidth < 1366) return;
             if (this.screenWidth <= 1920) {
-                this.bannerAnmiateData.banner1.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner1.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner2.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner2.height = 165 + (191 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner3.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner3.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner4.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner4.height = 150 + (174 - 150) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner5.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner5.height = 165 + (191 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner6.width = 1950 + (2264 - 1950) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner6.height = 178 + (207 - 178) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner1.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner1.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner2.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner2.height = 165 + (191 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner3.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner3.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner4.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner4.height = 150 + (174 - 150) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner5.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner5.height = 165 + (191 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner6.width = 1950 + (2264 - 1950) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner6.height = 178 + (207 - 178) / (1920 - 1366) * (this.screenWidth - 1366);
             } else {
-                this.bannerAnmiateData.banner1.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner1.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner2.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner2.height = 165 + (210 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner3.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner3.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner4.width = 1800 + (2190 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner4.height = 150 + (194 - 150) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner5.width = 1800 + (2190 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner5.height = 165 + (206 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner6.width = 1950 + (2300 - 1950) / (1920 - 1366) * (this.screenWidth - 1366);
-                this.bannerAnmiateData.banner6.height = 178 + (217 - 178) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner1.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner1.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner2.width = 1800 + (2090 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner2.height = 165 + (210 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner3.width = 3000 + (3483 - 3000) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner3.height = 250 + (290 - 250) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner4.width = 1800 + (2190 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner4.height = 150 + (194 - 150) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner5.width = 1800 + (2190 - 1800) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner5.height = 165 + (206 - 165) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner6.width = 1950 + (2300 - 1950) / (1920 - 1366) * (this.screenWidth - 1366);
+                this.bannerAnimateData.banner6.height = 178 + (217 - 178) / (1920 - 1366) * (this.screenWidth - 1366);
             }
         },
         bannerMouseEnter(e) {
             this.inBannerMouseX = e.pageX;
             this.mouseLeaveBanner = false;
         },
-        bannerMouseMove(e) {
-            this.mouseLeaveBanner = false;
-            let htmlWidth = document.documentElement.clientWidth;
-            // banner1
-            let blurChange1 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 4;
-            this.bannerAnmiateData.banner1.blur = 4 + blurChange1;
-            // banner2
-            let blurChange2 = (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
-            let translateX2 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 9;
-            this.bannerAnmiateData.banner2.blur = blurChange2;
-            this.bannerAnmiateData.banner2.translateX = translateX2;
-            // banner3
-            let blurChange3 =
-                1 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 3;
-            let translateX3 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 25;
-            this.bannerAnmiateData.banner3.blur = blurChange3;
-            this.bannerAnmiateData.banner3.translateX = -50 + translateX3;
-            // banner4
-            let blurChange4 = 0;
-            if (e.pageX - this.inBannerMouseX > 0) {
-                //4先减小后增大6
-                blurChange4 = 4 - ((e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
-                blurChange4 = blurChange4 < 0 ? -blurChange4 : blurChange4;
-            } else {
-                //4一直增大到14
-                blurChange4 = 4 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
+        // 节流函数在methods中的使用方法 事件名:函数名(fn,delay)
+        bannerMouseMove: throttle(function (e) {
+            {
+                this.mouseLeaveBanner = false;
+                let htmlWidth = document.documentElement.clientWidth;
+                // banner1
+                let blurChange1 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 4;
+                this.bannerAnimateData.banner1.blur = 4 + blurChange1;
+                // banner2
+                let blurChange2 = (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
+                let translateX2 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 9;
+                this.bannerAnimateData.banner2.blur = blurChange2;
+                this.bannerAnimateData.banner2.translateX = translateX2;
+                // banner3
+                let blurChange3 =
+                    1 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 3;
+                let translateX3 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 25;
+                this.bannerAnimateData.banner3.blur = blurChange3;
+                this.bannerAnimateData.banner3.translateX = -50 + translateX3;
+                // banner4
+                let blurChange4 = 0;
+                if (e.pageX - this.inBannerMouseX > 0) {
+                    //4先减小后增大6
+                    blurChange4 = 4 - ((e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
+                    blurChange4 = blurChange4 < 0 ? -blurChange4 : blurChange4;
+                } else {
+                    //4一直增大到14
+                    blurChange4 = 4 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
+                }
+                let translateX4 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 36;
+                this.bannerAnimateData.banner4.blur = blurChange4;
+                this.bannerAnimateData.banner4.translateX = translateX4;
+                // banner5
+                let blurChange5 = 0;
+                if (e.pageX - this.inBannerMouseX > 0) {
+                    //5先减小后增大5
+                    blurChange5 = 5 - ((e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
+                    blurChange5 = blurChange5 < 0 ? -blurChange5 : blurChange5;
+                } else {
+                    //5一直增大到15
+                    blurChange5 = 5 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
+                }
+                let translateX5 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 78;
+                this.bannerAnimateData.banner5.blur = blurChange5;
+                this.bannerAnimateData.banner5.translateX = translateX5;
+                // banner6
+                let blurChange6 = 0;
+                if (e.pageX - this.inBannerMouseX > 0) {
+                    blurChange6 = 6 - (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 6;
+                } else {
+                    blurChange6 = 6 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 6;
+                }
+                let translateX6 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 98;
+                this.bannerAnimateData.banner6.blur = blurChange6;
+                this.bannerAnimateData.banner6.translateX = translateX6;
             }
-            let translateX4 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 36;
-            this.bannerAnmiateData.banner4.blur = blurChange4;
-            this.bannerAnmiateData.banner4.translateX = translateX4;
-            // banner5
-            let blurChange5 = 0;
-            if (e.pageX - this.inBannerMouseX > 0) {
-                //5先减小后增大5
-                blurChange5 = 5 - ((e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
-                blurChange5 = blurChange5 < 0 ? -blurChange5 : blurChange5;
-            } else {
-                //5一直增大到15
-                blurChange5 = 5 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
-            }
-            let translateX5 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 78;
-            this.bannerAnmiateData.banner5.blur = blurChange5;
-            this.bannerAnmiateData.banner5.translateX = translateX5;
-            // banner6
-            let blurChange6 = 0;
-            if (e.pageX - this.inBannerMouseX > 0) {
-                blurChange6 = 6 - (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 6;
-            } else {
-                blurChange6 = 6 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 6;
-            }
-            let translateX6 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 98;
-            this.bannerAnmiateData.banner6.blur = blurChange6;
-            this.bannerAnmiateData.banner6.translateX = translateX6;
-        },
-        async bannerMouseLeave() {
+        }, 20),
+        bannerMouseLeave() {
             this.mouseLeaveBanner = true;
-            this.bannerAnmiateData.banner1.blur = 4;
-            this.bannerAnmiateData.banner2.blur = 0;
-            this.bannerAnmiateData.banner2.translateX = 0;
-            this.bannerAnmiateData.banner3.blur = 1;
-            this.bannerAnmiateData.banner3.translateX = -50;
-            this.bannerAnmiateData.banner4.blur = 4;
-            this.bannerAnmiateData.banner4.translateX = 0;
-            this.bannerAnmiateData.banner5.blur = 5;
-            this.bannerAnmiateData.banner5.translateX = 0;
-            this.bannerAnmiateData.banner6.blur = 6;
-            this.bannerAnmiateData.banner6.translateX = 0;
+            this.bannerAnimateData.banner1.blur = 4;
+            this.bannerAnimateData.banner2.blur = 0;
+            this.bannerAnimateData.banner2.translateX = 0;
+            this.bannerAnimateData.banner3.blur = 1;
+            this.bannerAnimateData.banner3.translateX = -50;
+            this.bannerAnimateData.banner4.blur = 4;
+            this.bannerAnimateData.banner4.translateX = 0;
+            this.bannerAnimateData.banner5.blur = 5;
+            this.bannerAnimateData.banner5.translateX = 0;
+            this.bannerAnimateData.banner6.blur = 6;
+            this.bannerAnimateData.banner6.translateX = 0;
             this.inBannerMouseX = 0;
         },
         closeEye() {
-            this.bannerAnmiateData.banner2.src = this.banner2SrcHalf;
-            this.common.sleep(50).then(() => {
-                this.bannerAnmiateData.banner2.src = this.banner2SrcClose;
-                return this.common.sleep(100)
+            this.bannerAnimateData.banner2.src = this.banner2SrcHalf;
+            sleep(50).then(() => {
+                this.bannerAnimateData.banner2.src = this.banner2SrcClose;
+                return sleep(100)
             }).then(() => {
-                this.bannerAnmiateData.banner2.src = this.banner2SrcHalf;
-                return this.common.sleep(50)
+                this.bannerAnimateData.banner2.src = this.banner2SrcHalf;
+                return sleep(50)
             }).then(() => {
-                this.bannerAnmiateData.banner2.src = this.banner2SrcOrigin;
+                this.bannerAnimateData.banner2.src = this.banner2SrcOrigin;
             });
         }
     }
