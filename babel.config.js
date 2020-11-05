@@ -18,13 +18,5 @@ module.exports = {
         style: true
       }, 'vant'
     ],
-    [
-      'import',
-      {
-        libraryName: 'ant-design-vue',
-        libraryDirectory: 'es',
-        style: true
-      }
-    ]
   ]
 }
