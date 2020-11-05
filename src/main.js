@@ -10,6 +10,10 @@ import {
   SwipeItem,
   Lazyload
 } from 'vant';
+import {
+  Popover
+} from 'ant-design-vue'
+Vue.component(Popover.name, Popover)
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(Lazyload);

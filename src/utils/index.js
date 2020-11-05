@@ -1,10 +1,10 @@
-export function sleep(millisecond) {
+export function sleep(delay) {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve()
-    }, millisecond)
+    }, delay)
   })
-};
+}
 // 时间戳节流函数
 export function throttle(fn, delay) {
   let prev = Date.now();
@@ -14,5 +14,18 @@ export function throttle(fn, delay) {
       fn.apply(this, arguments);
       prev = Date.now();
     }
+  }
+}
+// 非立即执行防抖
+export function debounce(fn, wait) {
+  let timeout = null;
+  return function () {
+    if (timeout !== null) clearTimeout(timeout);
+    let context = this;
+    let args = arguments;
+    timeout = setTimeout(function () {
+      fn.apply(context, args);
+      timeout = null;
+    }, wait);
   }
 }

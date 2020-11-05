@@ -128,7 +128,7 @@ export default {
 <style lang="less" scoped>
 .mini-header {
     position: relative;
-    z-index: 1;
+    z-index: 2020;
     width: 100%;
     height: 56px;
     background: #fff;

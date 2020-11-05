@@ -112,7 +112,6 @@ export default {
                 text: "",
             },
             screenWidth: 1366,
-            lock: 1,
             // banner动画数据存储
             bannerAnimateData: {
                 banner1: {
@@ -381,17 +380,12 @@ export default {
     mounted() {
         this.screenWidth = document.documentElement.clientWidth;
         this.bannerSelfAd();
-        setInterval(() => {
-            if (this.lock > 0) this.lock--;
-        }, 10);
         const that = this; // 备份this指向至that
-        window.addEventListener('resize', function () {
+        // 节流控制banner图片宽高自适应浏览器宽度
+        window.addEventListener('resize', throttle(function () {
             that.screenWidth = document.documentElement.clientWidth; // 触发立即更新尺寸数据
-            if (that.lock === 0) {
-                that.bannerSelfAd();
-                that.lock = 1
-            }
-        });
+            that.bannerSelfAd();
+        }, 200));
         setInterval(() => {
             this.closeEye();
         }, 3000)
@@ -431,62 +425,60 @@ export default {
             this.inBannerMouseX = e.pageX;
             this.mouseLeaveBanner = false;
         },
-        // 节流函数在methods中的使用方法 事件名:函数名(fn,delay)
+        // 节流函数在methods中的使用方法 处理名:节流函数名(fn,delay),内部this依旧指向Vue实例
         bannerMouseMove: throttle(function (e) {
-            {
-                this.mouseLeaveBanner = false;
-                let htmlWidth = document.documentElement.clientWidth;
-                // banner1
-                let blurChange1 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 4;
-                this.bannerAnimateData.banner1.blur = 4 + blurChange1;
-                // banner2
-                let blurChange2 = (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
-                let translateX2 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 9;
-                this.bannerAnimateData.banner2.blur = blurChange2;
-                this.bannerAnimateData.banner2.translateX = translateX2;
-                // banner3
-                let blurChange3 =
-                    1 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 3;
-                let translateX3 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 25;
-                this.bannerAnimateData.banner3.blur = blurChange3;
-                this.bannerAnimateData.banner3.translateX = -50 + translateX3;
-                // banner4
-                let blurChange4 = 0;
-                if (e.pageX - this.inBannerMouseX > 0) {
-                    //4先减小后增大6
-                    blurChange4 = 4 - ((e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
-                    blurChange4 = blurChange4 < 0 ? -blurChange4 : blurChange4;
-                } else {
-                    //4一直增大到14
-                    blurChange4 = 4 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
-                }
-                let translateX4 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 36;
-                this.bannerAnimateData.banner4.blur = blurChange4;
-                this.bannerAnimateData.banner4.translateX = translateX4;
-                // banner5
-                let blurChange5 = 0;
-                if (e.pageX - this.inBannerMouseX > 0) {
-                    //5先减小后增大5
-                    blurChange5 = 5 - ((e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
-                    blurChange5 = blurChange5 < 0 ? -blurChange5 : blurChange5;
-                } else {
-                    //5一直增大到15
-                    blurChange5 = 5 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
-                }
-                let translateX5 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 78;
-                this.bannerAnimateData.banner5.blur = blurChange5;
-                this.bannerAnimateData.banner5.translateX = translateX5;
-                // banner6
-                let blurChange6 = 0;
-                if (e.pageX - this.inBannerMouseX > 0) {
-                    blurChange6 = 6 - (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 6;
-                } else {
-                    blurChange6 = 6 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 6;
-                }
-                let translateX6 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 98;
-                this.bannerAnimateData.banner6.blur = blurChange6;
-                this.bannerAnimateData.banner6.translateX = translateX6;
+            this.mouseLeaveBanner = false;
+            let htmlWidth = document.documentElement.clientWidth;
+            // banner1
+            let blurChange1 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 4;
+            this.bannerAnimateData.banner1.blur = 4 + blurChange1;
+            // banner2
+            let blurChange2 = (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
+            let translateX2 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 9;
+            this.bannerAnimateData.banner2.blur = blurChange2;
+            this.bannerAnimateData.banner2.translateX = translateX2;
+            // banner3
+            let blurChange3 =
+                1 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 3;
+            let translateX3 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 25;
+            this.bannerAnimateData.banner3.blur = blurChange3;
+            this.bannerAnimateData.banner3.translateX = -50 + translateX3;
+            // banner4
+            let blurChange4 = 0;
+            if (e.pageX - this.inBannerMouseX > 0) {
+                //4先减小后增大6
+                blurChange4 = 4 - ((e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
+                blurChange4 = blurChange4 < 0 ? -blurChange4 : blurChange4;
+            } else {
+                //4一直增大到14
+                blurChange4 = 4 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
             }
+            let translateX4 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 36;
+            this.bannerAnimateData.banner4.blur = blurChange4;
+            this.bannerAnimateData.banner4.translateX = translateX4;
+            // banner5
+            let blurChange5 = 0;
+            if (e.pageX - this.inBannerMouseX > 0) {
+                //5先减小后增大5
+                blurChange5 = 5 - ((e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
+                blurChange5 = blurChange5 < 0 ? -blurChange5 : blurChange5;
+            } else {
+                //5一直增大到15
+                blurChange5 = 5 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 10;
+            }
+            let translateX5 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 78;
+            this.bannerAnimateData.banner5.blur = blurChange5;
+            this.bannerAnimateData.banner5.translateX = translateX5;
+            // banner6
+            let blurChange6 = 0;
+            if (e.pageX - this.inBannerMouseX > 0) {
+                blurChange6 = 6 - (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 6;
+            } else {
+                blurChange6 = 6 + (Math.abs(e.pageX - this.inBannerMouseX) / htmlWidth) * 6;
+            }
+            let translateX6 = ((e.pageX - this.inBannerMouseX) / htmlWidth) * 98;
+            this.bannerAnimateData.banner6.blur = blurChange6;
+            this.bannerAnimateData.banner6.translateX = translateX6;
         }, 20),
         bannerMouseLeave() {
             this.mouseLeaveBanner = true;

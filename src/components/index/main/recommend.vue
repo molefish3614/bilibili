@@ -22,7 +22,11 @@
                         </div>
                     </router-link>
                 </div>
-                <div class="watch-later-video watchlater black" @mouseenter="watchlaterEnter(item)" @mouseleave="watchlaterLeave(item)"><span class="wl-tips" :class="item.isWatchlaterEnter ? 'watchlater-move-enter-active' : ''" :style="{left: '-21px', display: item.show}">稍后再看</span></div>
+                <div class="watch-later-video watchlater black" @mouseenter="watchLaterHandle" @mouseleave="watchLaterHandle">
+                    <transition name="watchlater-move">
+                        <span v-show="showWatchLater" class="wl-tips" style="left: -21px">稍后再看</span>
+                    </transition>
+                </div>
             </div>
             <div class="btn prev" @click="prevHandle"><i class="bilifont bili-icon_caozuo_xiangzuo"></i></div>
             <div class="btn next" @click="nextHandle"><i class="bilifont bili-icon_caozuo_xiangyou"></i></div>
@@ -54,7 +58,11 @@
                             </div>
                             <p class="ex-title hover-blue" :title="item.title">{{item.title}}</p>
                         </router-link>
-                        <div class="watch-later-video watchlater black" @mouseenter="watchlaterEnter(item)" @mouseleave="watchlaterLeave(item)"><span class="wl-tips" :class="item.isWatchlaterEnter ? 'watchlater-move-enter-active' : ''" :style="{left: '-21px', display: item.show}">稍后再看</span></div>
+                        <div class="watch-later-video watchlater black" @mouseenter="watchLaterHandle" @mouseleave="watchLaterHandle">
+                            <transition name="watchlater-move">
+                                <span v-show="showWatchLater" class="wl-tips" style="left: -21px">稍后再看</span>
+                            </transition>
+                        </div>
                     </div>
                     <router-link :to="{path:item.uplink}" class="ex-up hover-blue" target="_blank"><i class="bilifont bili-icon_xinxi_UPzhu"></i>{{item.upName}}
                     </router-link>
@@ -91,7 +99,11 @@
                             </div>
                             <p class="ex-title hover-blue" :title="item.title">{{item.title}}</p>
                         </router-link>
-                        <div class="watch-later-video watchlater black" @mouseenter="watchlaterEnter(item)" @mouseleave="watchlaterLeave(item)"><span class="wl-tips" :class="item.isWatchlaterEnter ? 'watchlater-move-enter-active' : ''" :style="{left: '-21px', display: item.show}">稍后再看</span></div>
+                        <div class="watch-later-video watchlater black" @mouseenter="watchLaterHandle" @mouseleave="watchLaterHandle">
+                            <transition name="watchlater-move">
+                                <span v-show="showWatchLater" class="wl-tips" style="left: -21px">稍后再看</span>
+                            </transition>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,6 +121,7 @@
 export default {
     data() {
         return {
+            showWatchLater: false,
             imagesData: [{
                     path: require('@/assets/images/carousel/1.jpg'),
                     title: '兄坑第二季今日开播'
@@ -137,8 +150,6 @@ export default {
                     playCount: '45.6万播放',
                     upName: 'hololive_Official',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '[30covers] LOL官方翻牌！KDA / MORE / 最强最快男声翻唱！英雄联盟女团回归！K/DA就是坠屌的！',
@@ -146,8 +157,6 @@ export default {
                     playCount: '9.9万播放',
                     upName: '野生三十',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '《 沙 雕 女 孩 的 探 戈 》',
@@ -155,8 +164,6 @@ export default {
                     playCount: '8.2万播放',
                     upName: '尤超白',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '【湊-阿库娅】Take Over - 所向无前',
@@ -164,8 +171,6 @@ export default {
                     playCount: '406.3万播放',
                     upName: '湊-阿库娅Official',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '新 概 念 宠 粉',
@@ -173,8 +178,6 @@ export default {
                     playCount: '21.2万播放',
                     upName: 'LexBurner',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: 'iPhone 12 和 12 Pro 真的值得买吗？【值不值得买第456期】',
@@ -182,8 +185,6 @@ export default {
                     playCount: '14.5万播放',
                     upName: '钟文泽',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '职业教练带你复盘半决赛TES究竟输在哪里',
@@ -191,8 +192,6 @@ export default {
                     playCount: '16.1万播放',
                     upName: 'GFlamingo',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '【手书】名为绯赤艾莉欧的奇迹',
@@ -200,8 +199,6 @@ export default {
                     playCount: '4.6万播放',
                     upName: '手残又想秀',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '挑战全b站画质上限，无人能撑过一分钟！',
@@ -209,8 +206,6 @@ export default {
                     playCount: '87.3万播放',
                     upName: '血小板゚゚゚゚゚゚',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '住在树桩里，奇怪的灵感增加了！',
@@ -218,8 +213,6 @@ export default {
                     playCount: '43.1万播放',
                     upName: '蓝冰Gro',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }
             ],
             recoData2: [{
@@ -228,8 +221,6 @@ export default {
                     playCount: '21.2万播放',
                     upName: 'LexBurner',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '手把手教你做跨国大企业【沙雕观察3.23】',
@@ -237,8 +228,6 @@ export default {
                     playCount: '45.6万播放',
                     upName: 'hololive_Official',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: 'iPhone 12 和 12 Pro 真的值得买吗？【值不值得买第456期】',
@@ -246,8 +235,6 @@ export default {
                     playCount: '14.5万播放',
                     upName: '钟文泽',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '挑战全b站画质上限，无人能撑过一分钟！',
@@ -255,8 +242,6 @@ export default {
                     playCount: '87.3万播放',
                     upName: '血小板゚゚゚゚゚゚',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '职业教练带你复盘半决赛TES究竟输在哪里',
@@ -264,8 +249,6 @@ export default {
                     playCount: '16.1万播放',
                     upName: 'GFlamingo',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '【手书】名为绯赤艾莉欧的奇迹',
@@ -273,8 +256,6 @@ export default {
                     playCount: '4.6万播放',
                     upName: '手残又想秀',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '《 沙 雕 女 孩 的 探 戈 》',
@@ -282,8 +263,6 @@ export default {
                     playCount: '8.2万播放',
                     upName: '尤超白',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '[30covers] LOL官方翻牌！KDA / MORE / 最强最快男声翻唱！英雄联盟女团回归！K/DA就是坠屌的！',
@@ -291,8 +270,6 @@ export default {
                     playCount: '9.9万播放',
                     upName: '野生三十',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '住在树桩里，奇怪的灵感增加了！',
@@ -300,16 +277,12 @@ export default {
                     playCount: '43.1万播放',
                     upName: '蓝冰Gro',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     title: '【湊-阿库娅】Take Over - 所向无前',
                     img: require('@/assets/images/recommends/5.webp'),
                     playCount: '406.3万播放',
                     upName: '湊-阿库娅Official',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }
             ],
             recoData3: [{
@@ -318,8 +291,6 @@ export default {
                     playCount: '4.6万播放',
                     upName: '手残又想秀',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '[30covers] LOL官方翻牌！KDA / MORE / 最强最快男声翻唱！英雄联盟女团回归！K/DA就是坠屌的！',
@@ -327,8 +298,6 @@ export default {
                     playCount: '9.9万播放',
                     upName: '野生三十',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: 'iPhone 12 和 12 Pro 真的值得买吗？【值不值得买第456期】',
@@ -336,8 +305,6 @@ export default {
                     playCount: '14.5万播放',
                     upName: '钟文泽',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '住在树桩里，奇怪的灵感增加了！',
@@ -345,8 +312,6 @@ export default {
                     playCount: '43.1万播放',
                     upName: '蓝冰Gro',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '手把手教你做跨国大企业【沙雕观察3.23】',
@@ -354,8 +319,6 @@ export default {
                     playCount: '45.6万播放',
                     upName: 'hololive_Official',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '【湊-阿库娅】Take Over - 所向无前',
@@ -363,8 +326,6 @@ export default {
                     playCount: '406.3万播放',
                     upName: '湊-阿库娅Official',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '《 沙 雕 女 孩 的 探 戈 》',
@@ -372,8 +333,6 @@ export default {
                     playCount: '8.2万播放',
                     upName: '尤超白',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '新 概 念 宠 粉',
@@ -381,8 +340,6 @@ export default {
                     playCount: '21.2万播放',
                     upName: 'LexBurner',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '挑战全b站画质上限，无人能撑过一分钟！',
@@ -390,8 +347,6 @@ export default {
                     playCount: '87.3万播放',
                     upName: '血小板゚゚゚゚゚゚',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '职业教练带你复盘半决赛TES究竟输在哪里',
@@ -399,8 +354,6 @@ export default {
                     playCount: '16.1万播放',
                     upName: 'GFlamingo',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }
             ],
             recommendBoxData: [{
@@ -409,8 +362,6 @@ export default {
                     playCount: '45.6万播放',
                     upName: 'hololive_Official',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '[30covers] LOL官方翻牌！KDA / MORE / 最强最快男声翻唱！英雄联盟女团回归！K/DA就是坠屌的！',
@@ -418,8 +369,6 @@ export default {
                     playCount: '9.9万播放',
                     upName: '野生三十',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '《 沙 雕 女 孩 的 探 戈 》',
@@ -427,8 +376,6 @@ export default {
                     playCount: '8.2万播放',
                     upName: '尤超白',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '【湊-阿库娅】Take Over - 所向无前',
@@ -436,8 +383,6 @@ export default {
                     playCount: '406.3万播放',
                     upName: '湊-阿库娅Official',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '新 概 念 宠 粉',
@@ -445,8 +390,6 @@ export default {
                     playCount: '21.2万播放',
                     upName: 'LexBurner',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: 'iPhone 12 和 12 Pro 真的值得买吗？【值不值得买第456期】',
@@ -454,8 +397,6 @@ export default {
                     playCount: '14.5万播放',
                     upName: '钟文泽',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '职业教练带你复盘半决赛TES究竟输在哪里',
@@ -463,8 +404,6 @@ export default {
                     playCount: '16.1万播放',
                     upName: 'GFlamingo',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '【手书】名为绯赤艾莉欧的奇迹',
@@ -472,8 +411,6 @@ export default {
                     playCount: '4.6万播放',
                     upName: '手残又想秀',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '挑战全b站画质上限，无人能撑过一分钟！',
@@ -481,8 +418,6 @@ export default {
                     playCount: '87.3万播放',
                     upName: '血小板゚゚゚゚゚゚',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 },
                 {
                     title: '住在树桩里，奇怪的灵感增加了！',
@@ -490,8 +425,6 @@ export default {
                     playCount: '43.1万播放',
                     upName: '蓝冰Gro',
                     link: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }
             ],
             extendsData: {
@@ -505,8 +438,6 @@ export default {
                         upName: '梦想养成计划',
                         link: '/',
                         uplink: '/',
-                        isWatchlaterEnter: false,
-                        show: 'none'
                     },
                     {
                         title: '“风犬少年”周游：刘闻钦的结局把我手机搞炸了',
@@ -514,9 +445,7 @@ export default {
                         time: '13:47',
                         upName: '哔斯卡金像奖',
                         link: '/',
-                        uplink: '/',
-                        isWatchlaterEnter: false,
-                        show: 'none'
+                        uplink: '/'
                     },
                     {
                         title: '【琴】 大 姐 姐 ，琴 【原神】',
@@ -525,8 +454,7 @@ export default {
                         upName: '瑟瑟发抖小韭菜',
                         link: '/',
                         uplink: '/',
-                        isWatchlaterEnter: false,
-                        show: 'none'
+
                     },
                     {
                         title: '全网最高级出行方式，郑爽和李现祝您旅途愉快~',
@@ -535,8 +463,7 @@ export default {
                         upName: '地摊小表妹',
                         link: '/',
                         uplink: '/',
-                        isWatchlaterEnter: false,
-                        show: 'none'
+
                     },
                     {
                         title: '耗时上百~你也想起舞嘛？燃爆踩点盛宴-Edge of My Life',
@@ -545,8 +472,7 @@ export default {
                         upName: '苦瓜是甜的雪乃',
                         link: '/',
                         uplink: '/',
-                        isWatchlaterEnter: false,
-                        show: 'none'
+
                     },
                     {
                         title: '自制小电视手办，四万三千两百种表情自动秒换，每一秒都不重样',
@@ -555,8 +481,7 @@ export default {
                         upName: '司马好奇',
                         link: '/',
                         uplink: '/',
-                        isWatchlaterEnter: false,
-                        show: 'none'
+
                     },
                 ]
             },
@@ -577,8 +502,7 @@ export default {
                         time: '4:34:29',
                         url: '/',
                         img: require('@/assets/images/extends/11.jpg'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
+
                     },
                     {
                         title: '[2020全球总决赛]10月24日半决赛 G2 vs DWG',
@@ -587,8 +511,7 @@ export default {
                         time: '4:06:23',
                         url: '/',
                         img: require('@/assets/images/extends/12.jpg'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
+
                     },
                     {
                         title: '[2020全球总决赛]10月18日八强赛 GEN vs G2',
@@ -597,8 +520,7 @@ export default {
                         time: '3:09:25',
                         url: '/',
                         img: require('@/assets/images/extends/13.jpg'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
+
                     },
                     {
                         title: '[2020全球总决赛]10月17日八强赛 TES vs FNC',
@@ -607,8 +529,7 @@ export default {
                         time: '4:49:26',
                         url: '/',
                         img: require('@/assets/images/extends/14.jpg'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
+
                     },
                     {
                         title: '【才浅手工】亚索的哥哥我来当！爆肝30天打造永恩亚扎卡纳之剑，还原度99%',
@@ -617,8 +538,7 @@ export default {
                         time: '06:01',
                         url: '/',
                         img: require('@/assets/images/extends/15.jpg'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
+
                     },
                     {
                         title: '【猛男舞团】为LPL应援！K/DA《THE BADDEST》翻跳',
@@ -627,8 +547,7 @@ export default {
                         time: '02:43',
                         url: '/',
                         img: require('@/assets/images/extends/16.jpg'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
+
                     },
                 ]
             }
@@ -652,13 +571,8 @@ export default {
 
     },
     methods: {
-        watchlaterEnter(item) {
-            item.isWatchlaterEnter = true;
-            item.show = 'block';
-        },
-        watchlaterLeave(item) {
-            item.isWatchlaterEnter = false;
-            item.show = 'none';
+        watchLaterHandle() {
+            this.showWatchLater = !this.showWatchLater;
         },
         swipeClickHandle(e) {
             if (e.target.nodeName !== 'I') return;
@@ -811,6 +725,7 @@ export default {
     white-space: nowrap;
     font-weight: 500;
 }
+
 // 标题升起后需要white-space: normal开启换行
 .video-card-reco:hover .info-box .info .title {
     height: 36px;
@@ -888,7 +803,6 @@ export default {
 
     .storey-title {
         display: flex;
-        -ms-flex-align: center;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 16px;
@@ -929,6 +843,11 @@ export default {
     text-overflow: ellipsis;
     font-weight: 500;
     padding-right: 12px;
+}
+
+.video-card-common .card-pic:hover .watch-later-video {
+    transition-delay: .2s;
+    opacity: 1;
 }
 
 .video-card-common .ex-up {

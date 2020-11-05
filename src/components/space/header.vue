@@ -1,65 +1,110 @@
 <template>
-<div class="h">
-    <div class="wrapper">
-        <div class="h-inner" :style="{backgroundImage: 'url(' + userInfo.bannerImg + ')'}">
-            <div class="h-gradient" :style="{backgroundImage: 'url(' + userInfo.gradientImg + ')'}"></div>
-            <div class="h-user">
-                <div class="h-info clearfix">
-                    <div class="h-avatar">
-                        <img :src="userInfo.avatar" alt="" id="h-avatar">
-                        <span v-if="userInfo.auth" :title="userInfo.auth.category" class="user-auth clearfix" :class="userInfo.auth.cate === 'personal' ? 'personal-auth' : ''" :style="{backgroundImage: 'url('+userInfo.auth.icon+')'}"></span>
+<div>
+    <div class="h">
+        <div class="wrapper">
+            <div class="h-inner" :style="{backgroundImage: 'url(' + userInfo.bannerImg + ')'}">
+                <div class="h-gradient" :style="{backgroundImage: 'url(' + userInfo.gradientImg + ')'}"></div>
+                <div class="h-user">
+                    <div class="h-info clearfix">
+                        <div class="h-avatar">
+                            <img :src="userInfo.avatar" alt="" id="h-avatar">
+                            <span v-if="userInfo.auth" :title="userInfo.auth.category" class="user-auth clearfix" :class="userInfo.auth.cate === 'personal' ? 'personal-auth' : ''" :style="{backgroundImage: 'url('+userInfo.auth.icon+')'}"></span>
+                        </div>
+                        <div class="h-basic">
+                            <div>
+                                <span id="h-name">{{userInfo.name}}</span>
+                                <span id="h-gender" class="icon gender" :class="userInfo.gender ==='male' ? 'male' : 'female'"></span>
+                                <router-link :to="{path:'/level'}" target="_blank" :lvl="userInfo.level" class="m-level"></router-link>
+                                <router-link v-if="userInfo.vipType" :to="{path:'/accoutbig'}" target="_blank" class="h-vipType">{{userInfo.vipType}}</router-link>
+                                <router-link v-if="userInfo.fansIcon.haveFansIcon" :to="{path:userInfo.fansIcon.detail}" target="_blank" class="h-fans-icon">
+                                    <span class="h-fans-text">粉</span>
+                                    <div class="fans-hover-tip"><span class="tip-inner">已开通专属粉丝勋章</span></div>
+                                </router-link>
+                            </div>
+                            <div class="h-basic-spacing">
+                                <h4 :title="userInfo.sign" class="h-sign" v-if="showSign">
+                                    {{userInfo.sign}}
+                                </h4>
+                                <input v-if="showSignEdit" v-model="inputSign" id="h-sign" type="text" placeholder="编辑个性签名" maxlength="60" class="space_input" @keyup.enter="changeSign" @blur="changeSign">
+                            </div>
+                        </div>
                     </div>
-                    <div class="h-basic">
-                        <div>
-                            <span id="h-name">{{userInfo.name}}</span>
-                            <span id="h-gender" class="icon gender" :class="userInfo.gender ==='male' ? 'male' : 'female'"></span>
-                            <router-link :to="{path:'/level'}" target="_blank" :lvl="userInfo.level" class="m-level"></router-link>
-                            <router-link v-if="userInfo.vipType" :to="{path:'/accoutbig'}" target="_blank" class="h-vipType">{{userInfo.vipType}}</router-link>
-                            <router-link v-if="userInfo.fansIcon.haveFansIcon" :to="{path:userInfo.fansIcon.detail}" target="_blank" class="h-fans-icon">
-                                <span class="h-fans-text">粉</span>
-                                <div class="fans-hover-tip"><span class="tip-inner">已开通专属粉丝勋章</span></div>
-                            </router-link>
+                </div>
+                <div class="h-action">
+                    <div class="be-dropdown h-f-btn h-unfollow" @mouseenter="followHandle(1)" @mouseleave="followHandle(2)">
+                        <div class="h-btn-box">
+                            <i class="h-f-icon"></i>已关注
+                            <span class="icon icon-arrow"></span>
                         </div>
-                        <div class="h-basic-spacing">
-                            <h4 :title="userInfo.sign" class="h-sign" v-if="showSign">
-                                {{userInfo.sign}}
-                            </h4>
-                            <input v-if="showSignEdit" v-model="inputSign" id="h-sign" type="text" placeholder="编辑个性签名" maxlength="60" class="space_input" @keyup.enter="changeSign" @blur="changeSign">
-                        </div>
+                        <transition name="zoom">
+                            <ul v-show="showDropDownFollow" class="be-dropdown-menu" style="left: -10px; transform-origin: center top;">
+                                <li class="be-dropdown-item">设置分组</li>
+                                <li class="be-dropdown-item">取消关注</li>
+                            </ul>
+                        </transition>
+                    </div>
+                    <router-link to="/message" target="_blank" class="h-f-btn h-message">发消息</router-link>
+                    <div class="be-dropdown h-add-to-black" @mouseenter="moreHandle(1)" @mouseleave="moreHandle(2)">
+                        <div class="be-dropdown-trigger"><i title="更多操作" class="bilifont bili-icon_caozuo_xiangyou-copy"></i></div>
+                        <transition name="zoom">
+                            <ul v-show="showMore" class="be-dropdown-menu" style="left: -76px; transform-origin: center top;">
+                                <li class="be-dropdown-item">加入黑名单</li>
+                                <li class="be-dropdown-item">转为悄悄关注</li>
+                                <li class="be-dropdown-item" @click="showModal = true">个人信息举报</li>
+                            </ul>
+                        </transition>
                     </div>
                 </div>
             </div>
-            <div class="h-action">
-                <div class="be-dropdown h-f-btn h-unfollow" @mouseenter="followHandle(1)" @mouseleave="followHandle(2)">
-                    <div>
-                        <i class="h-f-icon"></i>已关注
-                        <span class="icon icon-arrow"></span>
+        </div>
+        <!-- 模态框 -->
+        <div class="modal-container" v-show="showModal">
+            <div class="modal-mask"></div>
+            <div class="modal-wrapper">
+                <div class="modal">
+                    <div class="modal-header">
+                        <i class="modal-header-close bilifont bili-icon_sousuo_yichu"></i>
+                        <div class="modal-title">个人信息举报</div>
                     </div>
-                    <transition name="zoom">
-                        <ul v-if="showDropDownFollow" class="be-dropdown-menu menu-align-" style="left: 1349.5px; top: 249px; transform-origin: center top;">
-                            <li class="be-dropdown-item">设置分组</li>
-                            <li class="be-dropdown-item">取消关注</li>
-                        </ul>
-                    </transition>
-                </div>
-                <router-link to="/message" target="_blank" class="h-f-btn h-message">发消息</router-link>
-                <div class="be-dropdown h-add-to-black" @mouseenter="moreHandle(1)" @mouseleave="moreHandle(2)">
-                    <div class="be-dropdown-trigger"><i title="更多操作" class="bilifont bili-icon_caozuo_xiangyou-copy"></i></div>
-                    <transition name="zoom">
-                        <ul class="be-dropdown-menu menu-align-" style="left: 1467.5px; top: 249px; transform-origin: center top;" v-if="showMore">
-                            <li class="be-dropdown-item">加入黑名单</li>
-                            <li class="be-dropdown-item">转为悄悄关注</li>
-                            <li class="be-dropdown-item">个人信息举报</li>
-                        </ul>
-                    </transition>
+                    <div class="modal-body">
+                        <div class="report-popup">
+                            <p class="report-popup-tip">举报内容（可多选）</p>
+                            <ul class="report-popup-list clearfix">
+                                <li class="report-popup-item" :class="modalData.avatar ? 'checked' : ''" @click="modalData.avatar = !modalData.avatar">
+                                    <em class="report-popup-item-checkbox"></em>
+                                    <span class="report-popup-item-text">头像违规</span>
+                                </li>
+                                <li class="report-popup-item" :class="modalData.nickName ? 'checked' : ''" @click="modalData.nickName = !modalData.nickName">
+                                    <em class="report-popup-item-checkbox"></em>
+                                    <span class="report-popup-item-text">昵称违规</span>
+                                </li>
+                                <li class="report-popup-item" :class="modalData.sign ? 'checked' : ''" @click="modalData.sign = !modalData.sign">
+                                    <em class="report-popup-item-checkbox"></em>
+                                    <span class="report-popup-item-text">签名违规</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn primary" @click="showModal = false; modalData = {avatar: false,nickName: false,sign: false}"><span class="btn-content">确定</span></button>
+                        <button class="btn default" @click="showModal = false; modalData = {avatar: false,nickName: false,sign: false}"><span class="btn-content">取消</span></button>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="navigator" class="n">
+        <div class="wrapper">
+            <div class="n-inner clearfix"></div>
         </div>
     </div>
 </div>
 </template>
 
 <script>
+import {
+    debounce
+} from '@/utils/index.js'
 export default {
     data() {
         return {
@@ -67,9 +112,13 @@ export default {
             showSign: false,
             inputSign: '',
             showDropDownFollow: false,
-            followTimer: null,
             showMore: false,
-            moreTimer: null,
+            showModal: false,
+            modalData: {
+                avatar: false,
+                nickName: false,
+                sign: false
+            },
             userInfo: {
                 name: '陈睿',
                 gender: 'male',
@@ -98,26 +147,13 @@ export default {
         changeSign() {
             this.userInfo.sign = this.inputSign;
         },
-        followHandle(num) {
-            if (num === 1) {
-                clearTimeout(this.followTimer);
-                this.showDropDownFollow = true;
-            } else {
-                this.followTimer = setTimeout(() => {
-                    this.showDropDownFollow = false;
-                }, 300)
-            }
-        },
-        moreHandle(num) {
-            if (num === 1) {
-                clearTimeout(this.moreTimer);
-                this.showMore = true;
-            } else {
-                this.moreTimer = setTimeout(() => {
-                    this.showMore = false;
-                }, 300)
-            }
-        }
+        // 下拉菜单展开使用防抖，以最新操作为准，避免菜单频繁闪烁
+        followHandle: debounce(function (num) {
+            this.showDropDownFollow = num === 1 ? true : false;
+        }, 200),
+        moreHandle: debounce(function (num) {
+            this.showMore = num === 1 ? true : false;
+        }, 200),
     }
 }
 </script>
@@ -407,6 +443,10 @@ export default {
     background-position: -1369px -214px;
 }
 
+.h-btn-box {
+    position: relative;
+}
+
 .icon-arrow {
     width: 16px;
     height: 20px;
@@ -420,7 +460,7 @@ export default {
 }
 
 .be-dropdown-menu {
-    position: fixed;
+    position: absolute;
     top: 40px;
     z-index: 10;
     padding: 6px 0;
@@ -491,5 +531,228 @@ export default {
     color: #fff;
     font-size: 30px;
     line-height: 30px;
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20000;
+}
+
+.modal-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1010;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.modal-wrapper {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    margin: 0 auto;
+    word-break: break-all;
+    line-height: 22px;
+    z-index: 1011;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .16);
+    border-radius: 4px;
+    transition: box-shadow .2s linear;
+}
+
+.modal-wrapper .modal-header {
+    position: relative;
+    font: 12px/1.11 Microsoft Yahei, Tahoma, Arial, Helvetica, STHeiti;
+}
+
+.modal-wrapper .modal-header-close {
+    position: absolute;
+    text-decoration: none;
+    top: 13px;
+    right: 12px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.modal-wrapper .modal-title {
+    display: block;
+    font-size: 16px;
+    line-height: 48px;
+    padding: 0 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-wrapper .modal-body {
+    padding: 30px 60px;
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+    min-width: 9em;
+}
+
+.h .modal-wrapper .modal-body {
+    padding: 30px 40px !important;
+}
+
+.h .report-popup-tip {
+    line-height: 18px;
+    font-size: 12px;
+    color: #99a2aa;
+    text-align: left;
+}
+
+.h .report-popup-list {
+    margin-top: 18px;
+    font-size: 0;
+}
+
+.h .report-popup-item {
+    float: left;
+    width: 90px;
+    line-height: 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.h .report-popup-item-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    border: 1px solid #bec3cc;
+    border-radius: 2px;
+    font-size: 0;
+}
+
+.h .report-popup-item:nth-child(2n) {
+    margin-left: 30px;
+}
+
+.h .report-popup-item-text {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 14px;
+    color: #222;
+    vertical-align: middle;
+}
+
+.modal-footer {
+    padding: 0 0 30px;
+    text-align: center;
+    font-size: 0;
+    white-space: nowrap;
+}
+
+.btn.primary {
+    color: #fff;
+    background-color: #00a1d6;
+    border-color: #00a1d6;
+}
+
+.btn.default {
+    margin-right: 0;
+    color: #666;
+    background-color: #fff;
+    border-color: #d9d9d9;
+}
+
+.btn {
+    display: inline-block;
+    touch-action: manipulation;
+    padding: 0 10px;
+    margin-right: 20px;
+    line-height: 30px;
+    min-width: 70px;
+    transition: all .2s ease;
+    font-size: 0;
+    color: #666;
+    text-align: center;
+    vertical-align: middle;
+    outline: none;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.btn-content {
+    font-size: 12px;
+    vertical-align: top;
+}
+
+.btn:focus,
+.btn:hover {
+    color: #00a1d6;
+    background-color: #fff;
+    border-color: #00a1d6;
+}
+
+.btn.primary:focus,
+.btn.primary:hover {
+    background-color: #00b5e5;
+    color: #fff;
+    border-color: #00b5e5;
+}
+
+.h .report-popup-item.checked .report-popup-item-checkbox {
+    background: #00a1d6;
+    border-color: #00a1d6;
+}
+
+.h .report-popup-item.checked .report-popup-item-checkbox:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 6px;
+    left: 3px;
+    width: 0;
+    height: 5px;
+    border-left: 2px solid #fff;
+    transform: rotate(-45deg);
+}
+
+.h .report-popup-item.checked .report-popup-item-checkbox:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 9px;
+    width: 0;
+    height: 11px;
+    border-left: 2px solid #fff;
+    transform: rotate(45deg);
+}
+
+.n {
+    margin-bottom: 10px;
+}
+
+.n .n-inner {
+    height: 66px;
+    background: #fff;
+    box-shadow: 0 0 0 1px #eee;
+    border-radius: 0 0 4px 4px;
+    padding: 0 20px;
+    font-size: 0;
 }
 </style>

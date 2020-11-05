@@ -11,11 +11,20 @@ module.exports = {
       }
     ],
     [
-      'import', 
+      'import',
       {
-      libraryName: "vant",
-      libraryDirectory: "es",
-      style: true
-    },'vant']
+        libraryName: 'vant',
+        libraryDirectory: 'es',
+        style: true
+      }, 'vant'
+    ],
+    [
+      'import',
+      {
+        libraryName: 'ant-design-vue',
+        libraryDirectory: 'es',
+        style: true
+      }
+    ]
   ]
 }

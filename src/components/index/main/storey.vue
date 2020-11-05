@@ -119,7 +119,11 @@
                                     </div>
                                     <i v-if="item.rank" class="crown" :class="item.rank"></i>
                                 </router-link>
-                                <div class="watch-later-video watchlater black" @mouseenter="watchlaterEnter(item)" @mouseleave="watchlaterLeave(item)"><span class="wl-tips" :class="item.isWatchlaterEnter ? 'watchlater-move-enter-active' : ''" :style="{left: '-21px', display: item.show}">稍后再看</span></div>
+                                <div class="watch-later-video watchlater black" @mouseenter="watchLaterHandle" @mouseleave="watchLaterHandle">
+                                    <transition name="watchlater-move">
+                                        <span v-show="showWatchLater" class="wl-tips" style="left: -21px">稍后再看</span>
+                                    </transition>
+                                </div>
                             </div>
                             <router-link :to="{path:item.path}" class="title hover-blue" :title="item.title" target="_blank">{{item.title}}</router-link>
                             <router-link :to="{path:item.upHome}" class="up hover-blue" target="_blank"><i class="bilifont bili-icon_xinxi_UPzhu"></i>{{item.upName}}</router-link>
@@ -138,7 +142,11 @@
                                 <router-link :to="{path: item.url}" class="link">
                                     <img :src="item.img" alt="">
                                 </router-link>
-                                <div class="watch-later-video watchlater black" @mouseenter="watchlaterEnter(item)" @mouseleave="watchlaterLeave(item)"><span class="wl-tips" :class="item.isWatchlaterEnter ? 'watchlater-move-enter-active' : ''" :style="{left: '-21px', display: item.show}">稍后再看</span></div>
+                                <div class="watch-later-video watchlater black" @mouseenter="watchLaterHandle" @mouseleave="watchLaterHandle">
+                                    <transition name="watchlater-move">
+                                        <span v-show="showWatchLater" class="wl-tips" style="left: -21px">稍后再看</span>
+                                    </transition>
+                                </div>
                             </div>
                             <div :class="item.number === 1 ? 'txt' : ''">
                                 <router-link :to="{path: item.url}" target="_blank" class="link">
@@ -197,7 +205,11 @@
                                     </div>
                                     <i v-if="item.rank" class="crown" :class="item.rank"></i>
                                 </router-link>
-                                <div class="watch-later-video watchlater black" @mouseenter="watchlaterEnter(item)" @mouseleave="watchlaterLeave(item)"><span class="wl-tips" :class="item.isWatchlaterEnter ? 'watchlater-move-enter-active' : ''" :style="{left: '-21px', display: item.show}">稍后再看</span></div>
+                                <div class="watch-later-video watchlater black" @mouseenter="watchLaterHandle" @mouseleave="watchLaterHandle">
+                                    <transition name="watchlater-move">
+                                        <span v-show="showWatchLater" class="wl-tips" style="left: -21px">稍后再看</span>
+                                    </transition>
+                                </div>
                             </div>
                             <router-link :to="{path:item.path}" class="title hover-blue" :title="item.title" target="_blank">{{item.title}}</router-link>
                             <router-link :to="{path:item.upHome}" class="up hover-blue" target="_blank"><i class="bilifont bili-icon_xinxi_UPzhu"></i>{{item.upName}}</router-link>
@@ -216,7 +228,11 @@
                                 <router-link :to="{path: item.url}" class="link" target="_blank">
                                     <img :src="item.img" alt="">
                                 </router-link>
-                                <div class="watch-later-video watchlater black" @mouseenter="watchlaterEnter(item)" @mouseleave="watchlaterLeave(item)"><span class="wl-tips" :class="item.isWatchlaterEnter ? 'watchlater-move-enter-active' : ''" :style="{left: '-21px', display: item.show}">稍后再看</span></div>
+                                <div class="watch-later-video watchlater black" @mouseenter="watchLaterHandle" @mouseleave="watchLaterHandle">
+                                    <transition name="watchlater-move">
+                                        <span v-show="showWatchLater" class="wl-tips" style="left: -21px">稍后再看</span>
+                                    </transition>
+                                </div>
                             </div>
                             <div :class="item.number === 1 ? 'txt' : ''">
                                 <router-link :to="{path: item.url}" target="_blank" class="link">
@@ -269,7 +285,11 @@
                             </div>
                             <i v-if="item.rank" class="crown" :class="item.rank"></i>
                         </router-link>
-                        <div class="watch-later-video watchlater black" @mouseenter="watchlaterEnter(item)" @mouseleave="watchlaterLeave(item)"><span class="wl-tips" :class="item.isWatchlaterEnter ? 'watchlater-move-enter-active' : ''" :style="{left: '-21px', display: item.show}">稍后再看</span></div>
+                        <div class="watch-later-video watchlater black" @mouseenter="watchLaterHandle" @mouseleave="watchLaterHandle">
+                            <transition name="watchlater-move">
+                                <span v-show="showWatchLater" class="wl-tips" style="left: -21px">稍后再看</span>
+                            </transition>
+                        </div>
                     </div>
                     <router-link :to="{path:item.path}" class="title hover-blue" :title="item.title" target="_blank">{{item.title}}</router-link>
                     <router-link :to="{path:item.upHome}" class="up hover-blue"><i class="bilifont bili-icon_xinxi_UPzhu" target="_blank"></i>{{item.upName}}</router-link>
@@ -302,6 +322,7 @@ import {
 export default {
     data() {
         return {
+            showWatchLater: false,
             liveData: {
                 bannerCard: require('@/assets/images/storey/banner-card.jpg'),
                 iconClass: 'bilifont bili-live',
@@ -548,8 +569,6 @@ export default {
                     title: '【原神小剧场】可莉的痛',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/2.webp'),
                     path: '/',
@@ -560,8 +579,6 @@ export default {
                     title: '用六十部动漫台词唱出一首《稻香》',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/3.webp'),
                     path: '/',
@@ -572,8 +589,6 @@ export default {
                     title: '性感与可爱在沙雕面前不堪一击!!',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/4.webp'),
                     path: '/',
@@ -584,8 +599,6 @@ export default {
                     title: '【上琴/AMV】剪完把自己看哭了',
                     rank: '',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/5.webp'),
                     path: '/',
@@ -596,8 +609,6 @@ export default {
                     title: '【Undertale漫配/中文字幕】加起来三岁不能再多了',
                     rank: '',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/6.webp'),
                     path: '/',
@@ -608,8 +619,6 @@ export default {
                     title: '动漫盘点：摸一下妹子的尾巴会怎样？',
                     rank: 'silver',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/7.webp'),
                     path: '/',
@@ -620,8 +629,6 @@ export default {
                     title: '这部动画堪称2017头号神作，却因为种种原因不够火爆！',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/8.webp'),
                     path: '/',
@@ -632,8 +639,6 @@ export default {
                     title: 'Undertale 反應全然5階',
                     rank: '',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/9.webp'),
                     path: '/',
@@ -644,8 +649,6 @@ export default {
                     title: '【东方MMD】阴间吉他手',
                     rank: '',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/10.webp'),
                     path: '/',
@@ -656,8 +659,6 @@ export default {
                     title: '【数码宝贝 全图鉴】绝赞！15周年纪念礼物！',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/11.webp'),
                     path: '/',
@@ -668,8 +669,6 @@ export default {
                     title: '【第五人格手书/杰佣】恋爱裁判',
                     rank: 'silver',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/douga/12.webp'),
                     path: '/',
@@ -680,8 +679,6 @@ export default {
                     title: '《耗时半年!3000张板绘完成[石之海]三重特效动画》',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }],
                 rankData: [{
                     number: 1,
@@ -696,8 +693,6 @@ export default {
                     coins: '18.1万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 2,
                     title: "Trick or Treat ฅ'ω'ฅ",
@@ -711,8 +706,6 @@ export default {
                     coins: '18.1万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 3,
                     title: "笑到猪叫！动漫高手最终决战！你画这个我可就不困了？！（第二期）",
@@ -726,8 +719,6 @@ export default {
                     coins: '10.6万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 4,
                     title: "《 爷 爷 拯 救 计 划 》",
@@ -741,8 +732,6 @@ export default {
                     coins: '29.1万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 5,
                     title: "【原神小剧场】可莉的痛",
@@ -756,8 +745,6 @@ export default {
                     coins: '8.8万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 6,
                     title: "你家猫长这样？【阅片无数动漫篇15】",
@@ -771,8 +758,6 @@ export default {
                     coins: '3.4万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 7,
                     title: "挑战全b站画质上限，无人能撑过一分钟！",
@@ -786,8 +771,6 @@ export default {
                     coins: '6.3万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 8,
                     title: "其实，朋友间也是有阶级差异的",
@@ -801,8 +784,6 @@ export default {
                     coins: '2.8万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 9,
                     title: "反杀土味情话3.0",
@@ -816,8 +797,6 @@ export default {
                     coins: '4.1万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 10,
                     title: "“妈，我女朋友大我30岁”",
@@ -831,8 +810,6 @@ export default {
                     coins: '3.3万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, ]
             },
             kichikuData: {
@@ -848,8 +825,6 @@ export default {
                     title: 'O⚡保⚡国⚡奶',
                     rank: 'silver',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/2.webp'),
                     path: '/',
@@ -860,8 +835,6 @@ export default {
                     title: '【布施明】假 面 骑 士 空 我',
                     rank: 'silver',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/3.webp'),
                     path: '/',
@@ -872,8 +845,6 @@ export default {
                     title: '【素材】MLG绿幕素材合集（部分）MEME',
                     rank: 'silver',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/4.webp'),
                     path: '/',
@@ -884,8 +855,6 @@ export default {
                     title: '【颠覆B站传统观影体验的视频】逆转裁判阿杰 第一话（测试版）',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/5.webp'),
                     path: '/',
@@ -896,8 +865,6 @@ export default {
                     title: '【东京大明白】以散之名',
                     rank: 'silver',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/6.webp'),
                     path: '/',
@@ -908,8 +875,6 @@ export default {
                     title: '【全明星】刘为何开枪打死曹',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/7.webp'),
                     path: '/',
@@ -920,8 +885,6 @@ export default {
                     title: '【建议改成】使 命 召 唤 1 6',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/8.webp'),
                     path: '/',
@@ -932,8 +895,6 @@ export default {
                     title: '垫⚡饥⚡小⚡子',
                     rank: 'silver',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/9.webp'),
                     path: '/',
@@ -944,8 +905,6 @@ export default {
                     title: '【红楼梦】谁还不是个bad guy啊？',
                     rank: 'silver',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/10.webp'),
                     path: '/',
@@ -956,8 +915,6 @@ export default {
                     title: '【春晚鬼畜】赵本山：我就是念诗之王！【改革春风吹满地】',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/11.webp'),
                     path: '/',
@@ -968,8 +925,6 @@ export default {
                     title: '煮酒论公主连结',
                     rank: 'gold',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     img: require('@/assets/images/storey/kichiku/12.webp'),
                     path: '/',
@@ -980,8 +935,6 @@ export default {
                     title: '移除holo，彩虹强大！',
                     rank: '',
                     upHome: '/',
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }],
                 rankData: [{
                     number: 1,
@@ -996,8 +949,6 @@ export default {
                     coins: '7.4万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 2,
                     title: "69岁，是名侦探",
@@ -1011,8 +962,6 @@ export default {
                     coins: '1.9万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 3,
                     title: "郎 朗 上 头",
@@ -1026,8 +975,6 @@ export default {
                     coins: '29.4万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 4,
                     title: "马保国大战容嬷嬷",
@@ -1041,8 +988,6 @@ export default {
                     coins: '3.1万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 5,
                     title: "爷青回！这些经典鬼畜我倒背如流！就是手速不够快！【鬼畜高手03】",
@@ -1056,8 +1001,6 @@ export default {
                     coins: '8.8万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 6,
                     title: "你家猫长这样？【阅片无数动漫篇15】",
@@ -1071,8 +1014,6 @@ export default {
                     coins: '1.1万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 7,
                     title: "马保国偷袭钢铁侠",
@@ -1086,8 +1027,6 @@ export default {
                     coins: '5.9万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 8,
                     title: "快⚡️使⚡️用⚡️闪⚡电⚡鞭",
@@ -1101,8 +1040,6 @@ export default {
                     coins: '3.5万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 9,
                     title: "你甚至不愿喊我一声掌门人",
@@ -1116,8 +1053,6 @@ export default {
                     coins: '3.6万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, {
                     number: 10,
                     title: "武 林 高 手",
@@ -1131,8 +1066,6 @@ export default {
                     coins: '29.8万',
                     url: '/',
                     pvcShow: false,
-                    isWatchlaterEnter: false,
-                    show: 'none'
                 }, ]
             },
             specRecData: {
@@ -1149,8 +1082,6 @@ export default {
                         goods: '20',
                         time: '7:12',
                         img: require('@/assets/images/storey/spec-rec/1.webp'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
                     }, {
                         title: '万圣节搞怪，用"鸡爪"cos一个禅境花园',
                         path: '/',
@@ -1161,8 +1092,6 @@ export default {
                         time: '6:30',
                         url: '/',
                         img: require('@/assets/images/storey/spec-rec/2.webp'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
                     }, {
                         title: '怎么会有这么怂的生物【浣熊】',
                         path: '/',
@@ -1173,8 +1102,6 @@ export default {
                         time: '0:42',
                         url: '/',
                         img: require('@/assets/images/storey/spec-rec/3.webp'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
                     }, {
                         title: '像不像逃课被班主任抓到的你...【第一视角】',
                         path: '/',
@@ -1185,8 +1112,6 @@ export default {
                         time: '2:20',
                         url: '/',
                         img: require('@/assets/images/storey/spec-rec/4.webp'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
                     }, {
                         title: '中亚酱香饼为什么特别好吃？秘制的酱料才是关键',
                         path: '/',
@@ -1197,8 +1122,6 @@ export default {
                         time: '4:46',
                         url: '/',
                         img: require('@/assets/images/storey/spec-rec/5.webp'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
                     }, {
                         title: '中亚大叔炖“宝藏鹌鹑”！这肚子里全是羊肉',
                         path: '/',
@@ -1209,8 +1132,6 @@ export default {
                         time: '3:18',
                         url: '/',
                         img: require('@/assets/images/storey/spec-rec/6.webp'),
-                        isWatchlaterEnter: false,
-                        show: 'none'
                     },
 
                 ]
@@ -1293,13 +1214,8 @@ export default {
             else if (num === 1) this.tabsDisplay = ['none', 'block', 'none']
             else this.tabsDisplay = ['none', 'none', 'block']
         },
-        watchlaterEnter(item) {
-            item.isWatchlaterEnter = true;
-            item.show = 'block';
-        },
-        watchlaterLeave(item) {
-            item.isWatchlaterEnter = false;
-            item.show = 'none';
+        watchLaterHandle() {
+            this.showWatchLater = !this.showWatchLater;
         },
         // 回到顶部
         backTop() {
@@ -1798,6 +1714,7 @@ export default {
 .rank-wrap .preview .txt span {
     font-size: 12px;
     color: #999;
+    white-space: nowrap;
 }
 
 .rank-wrap .preview .pic .watch-later-video {
