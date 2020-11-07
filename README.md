@@ -24,7 +24,7 @@ Bilibili-FE 哔哩哔哩
 
 ​		3、利用媒体查询实现了宽度自适应
 
-       4、Vue组件中CSS样式剥离至src/css目录中，view与css文件对应，CSS背景图片用相对地址获取
+​       4、Vue组件中CSS样式剥离至src/css目录中，view与css文件对应，CSS背景图片用相对地址获取
 
 ​		5、个人主页运用动态路由
 
