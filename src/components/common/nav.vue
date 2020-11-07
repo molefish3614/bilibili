@@ -1,6 +1,6 @@
 <template>
 <div class="mini-header">
-    <div class="mini-header-content white-a">
+    <div class="mini-header-content">
         <div class="nav-link">
             <ul class="nav-link-ul">
                 <li class="nav-link-item" :key="i" v-for="(item, i) in navItem">
@@ -356,6 +356,7 @@ export default {
 .nav-link .nav-link-ul .nav-link-item .link {
     font-size: 14px;
     color: #fff;
+    text-shadow:none;
     white-space: nowrap;
     display: flex;
 }

@@ -32,11 +32,6 @@ export default {
 }
 </script>
 
-<style>
-@media (min-width: 1420px) {
+<style src="../assets/css/space.css" scoped>
 
-    .wrapper {
-        width: 1280px !important;
-    }
-}
 </style>

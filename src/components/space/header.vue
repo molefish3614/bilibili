@@ -3,12 +3,12 @@
     <div class="h">
         <div class="wrapper">
             <div class="h-inner" :style="{backgroundImage: 'url(' + userInfo.bannerImg + ')'}">
-                <div class="h-gradient" :style="{backgroundImage: 'url(' + userInfo.gradientImg + ')'}"></div>
+                <div class="h-gradient"></div>
                 <div class="h-user">
                     <div class="h-info clearfix">
                         <div class="h-avatar">
                             <img :src="userInfo.avatar" alt="" id="h-avatar">
-                            <span v-if="userInfo.auth" :title="userInfo.auth.category" class="user-auth clearfix" :class="userInfo.auth.cate === 'personal' ? 'personal-auth' : ''" :style="{backgroundImage: 'url('+userInfo.auth.icon+')'}"></span>
+                            <span v-if="userInfo.auth" :title="userInfo.auth.category" class="user-auth clearfix" :class="userInfo.auth.cate === 'personal' ? 'personal-auth' : ''"></span>
                         </div>
                         <div class="h-basic">
                             <div>
@@ -95,8 +95,89 @@
     </div>
     <div id="navigator" class="n">
         <div class="wrapper">
-            <div class="n-inner clearfix"></div>
+            <div class="n-inner clearfix">
+                <div class="n-tab-links">
+                    <!-- 建议name调用路由，这样路由地址只由配置文件管理，name调用提供params绑定路由配置文件中的动态参数预留位就能简单实现动态路由 -->
+                    <router-link :key="i" v-for="(item,i) in tabLinks" :to="{name:item.component, params:{id: userInfo.id}}" class="n-btn" :class="item.id === n_activeId ? 'active' : ''" :id="item.id" @mouseenter.native="cursorMove(i)" @click.native="n_activeId = item.id ; n_activeStat = ''">
+                        <span class="icon" :class="item.iconClass"></span>
+                        <span class="n-text">{{item.name}}</span>
+                        <span v-if="item.num" class="n-num">{{item.num}}</span>
+                    </router-link>
+                </div>
+                <div class="clearfix g-search search-container">
+                    <input type="text" placeholder="搜索视频" class="space_input">
+                    <span class="icon search-btn"></span>
+                </div>
+                <div class="n-statistics">
+                    <router-link :to="{name: 'spaceFollow',params: {id:userInfo.id}}" class="n-data n-gz" :class="n_activeStat === 'follows'? 'active' : ''" :title="userInfo.follows" @click.native="n_activeStat = 'follows'">
+                        <p class="n-data-k">关注数</p>
+                        <p id="n-gz" class="n-data-v space-attention">{{userInfo.follows}}</p>
+                    </router-link>
+                    <router-link :to="{name: 'spaceFans',params: {id:userInfo.id}}" class="n-data n-fs" :class="n_activeStat === 'fans' ? 'active' : ''" :title="userInfo.fans" @click.native="n_activeStat = 'fans'">
+                        <p class="n-data-k">粉丝数</p>
+                        <p id="n-fs" class="n-data-v space-attention">{{userInfo.fans}}</p>
+                    </router-link>
+                    <div :title="'视频、动态、专栏累计获赞'+userInfo.agrees" class="n-data n-bf">
+                        <p class="n-data-k">获赞数</p>
+                        <p id="n-bf" class="n-data-v">{{userInfo.agrees}}</p>
+                    </div>
+                    <div :title="'截止昨天，播放数总计为'+userInfo.playCount" class="n-data n-bf">
+                        <p class="n-data-k">播放数</p>
+                        <p id="n-bf" class="n-data-v">{{userInfo.playCount}}</p>
+                    </div>
+                    <div :title="'截止昨天，阅读数总计为'+userInfo.readCount" class="n-data n-bf">
+                        <p class="n-data-k">阅读数</p>
+                        <p id="n-bf" class="n-data-v">{{userInfo.readCount}}</p>
+                    </div>
+                </div>
+                <div class="n-cursor" style="width: 50px; left: 20px;"></div>
+            </div>
         </div>
+    </div>
+    <div id="navigator" class="n n-fix">
+        <div class="wrapper">
+            <div class="n-inner clearfix">
+                <div class="n-tab-links">
+                    <router-link :key="i" v-for="(item,i) in tabLinks" :to="{name:item.component, params:{id: userInfo.id}}" class="n-btn" :class="item.id === n_activeId ? 'active' : ''" :id="item.id" @mouseenter.native="cursorMove(i)" @click.native="n_activeId = item.id;n_activeStat = ''">
+                        <span v-if="i === 0" class="n-avatar"><img :src="userInfo.avatar" :alt="userInfo.name"></span>
+                        <span v-if="i !== 0" class="icon" :class="item.iconClass"></span>
+                        <span v-if="i ===0" class="n-text">{{userInfo.name}}</span>
+                        <span v-if="i !==0" class="n-text">{{item.name}}</span>
+                        <span v-if="item.num" class="n-num">{{item.num}}</span>
+                    </router-link>
+                </div>
+                <div class="clearfix g-search search-container">
+                    <input type="text" placeholder="搜索视频" class="space_input">
+                    <span class="icon search-btn"></span>
+                </div>
+                <div class="n-statistics">
+                    <router-link :to="{name: 'spaceFollow',params: {id:userInfo.id}}" class="n-data n-gz" :class="n_activeStat === 'follows'? 'active' : ''" :title="userInfo.follows" @click.native="n_activeStat = 'follows'">
+                        <p class="n-data-k">关注数</p>
+                        <p id="n-gz" class="n-data-v space-attention">{{userInfo.follows}}</p>
+                    </router-link>
+                    <router-link :to="{name: 'spaceFans',params: {id:userInfo.id}}" class="n-data n-fs" :class="n_activeStat === 'fans' ? 'active' : ''" :title="userInfo.fans" @click.native="n_activeStat = 'fans'">
+                        <p class="n-data-k">粉丝数</p>
+                        <p id="n-fs" class="n-data-v space-attention">{{userInfo.fans}}</p>
+                    </router-link>
+                    <div :title="'视频、动态、专栏累计获赞'+userInfo.agrees" class="n-data n-bf">
+                        <p class="n-data-k">获赞数</p>
+                        <p id="n-bf" class="n-data-v">{{userInfo.agrees}}</p>
+                    </div>
+                    <div :title="'截止昨天，播放数总计为'+userInfo.playCount" class="n-data n-bf">
+                        <p class="n-data-k">播放数</p>
+                        <p id="n-bf" class="n-data-v">{{userInfo.playCount}}</p>
+                    </div>
+                    <div :title="'截止昨天，阅读数总计为'+userInfo.readCount" class="n-data n-bf">
+                        <p class="n-data-k">阅读数</p>
+                        <p id="n-bf" class="n-data-v">{{userInfo.readCount}}</p>
+                    </div>
+                </div>
+                <div class="n-cursor" style="width: 50px; left: 20px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="s-space">
+        <router-view></router-view>
     </div>
 </div>
 </template>
@@ -119,19 +200,60 @@ export default {
                 nickName: false,
                 sign: false
             },
+            n_activeId: 'n-index',
+            n_activeStat: '',
+            tabLinks: [{
+                    name: '主页',
+                    component: 'spaceIndex',
+                    id: 'n-index',
+                    iconClass: 'icon-ic_home'
+                },
+                {
+                    name: '动态',
+                    component: 'spaceDynamic',
+                    id: 'n-dynamic',
+                    iconClass: 'icon-ic_following'
+                },
+                {
+                    name: '投稿',
+                    num: '87',
+                    component: 'spaceVideo',
+                    id: 'n-video',
+                    iconClass: 'icon-ic_video'
+                },
+                {
+                    name: '频道',
+                    num: '0',
+                    component: 'spaceChannel',
+                    id: 'n-channel',
+                    iconClass: 'icon-ic_channel'
+                },
+                {
+                    name: '订阅',
+                    component: 'spaceBangumi',
+                    id: 'n-bangumi',
+                    iconClass: 'icon-ic_sub'
+                }
+            ],
+            tabsOffset: [],
             userInfo: {
                 name: '陈睿',
+                avatar: require('@/assets/images/avatar.png'),
                 gender: 'male',
                 level: '6',
                 vipType: '百年带会员',
                 sign: '喜欢的话就坚持吧',
+                id: 114514,
+                follows: '395',
+                fans: '195.8万',
+                agrees: '362万',
+                playCount: '794.2万',
+                readCount: '618.9万',
                 bannerImg: require('@/assets/images/space/banner.webp'),
-                gradientImg: require('@/assets/images/space/gradient.png'),
                 avatar: require('@/assets/images/avatar.png'),
                 auth: {
                     category: '个人认证',
                     cate: 'personal',
-                    icon: require('@/assets/images/user-auth.png'),
                 },
                 fansIcon: {
                     haveFansIcon: true,
@@ -142,6 +264,15 @@ export default {
     },
     created() {
         this.inputSign = this.userInfo.sign;
+    },
+    mounted() {
+        this.tabLinks.forEach((item, i, arr) => {
+            let dom = document.querySelector('#' + item.id);
+            this.tabsOffset.push({
+                left: dom.offsetLeft,
+                width: dom.offsetWidth
+            });
+        })
     },
     methods: {
         changeSign() {
@@ -154,605 +285,17 @@ export default {
         moreHandle: debounce(function (num) {
             this.showMore = num === 1 ? true : false;
         }, 200),
+        cursorMove(index) {
+            const cursors = document.querySelectorAll('.n-cursor');
+            cursors[0].style.left = this.tabsOffset[index].left + 'px';
+            cursors[0].style.width = this.tabsOffset[index].width + 'px';
+            cursors[1].style.left = this.tabsOffset[index].left + 'px';
+            cursors[1].style.width = this.tabsOffset[index].width + 'px';
+        },
     }
 }
 </script>
 
-<style lang="less" scoped>
-.clearfix {
-    display: block;
-}
+<style src="../../assets/css/space.css" scoped>
 
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
-.h {
-    position: relative;
-    z-index: 10;
-}
-
-.wrapper {
-    width: 1100px;
-    margin: 0 auto;
-    position: relative;
-}
-
-.h .h-inner {
-    background-position: 50%;
-    background-size: cover;
-    transition: background-image .2s ease, background-size 1s ease;
-    padding-top: 116px;
-    position: relative;
-}
-
-.h .h-gradient {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 84px;
-    background-repeat: repeat-x;
-}
-
-.h .h-user {
-    position: relative;
-    z-index: 1;
-}
-
-.h .h-info {
-    margin-left: 20px;
-    padding-bottom: 16px;
-}
-
-.h .h-avatar {
-    position: relative;
-    float: left;
-    width: 64px;
-    height: 64px;
-    border: 2px solid hsla(0, 0%, 100%, .4);
-    border-radius: 52px;
-}
-
-.h #h-avatar {
-    width: 64px;
-    height: 64px;
-    background: #fff;
-    border-radius: 48px;
-}
-
-.user-auth.personal-auth {
-    background-position: -38px -53px;
-}
-
-.user-auth {
-    position: absolute;
-    z-index: 9;
-    background-repeat: no-repeat;
-    right: 0;
-    top: 44px;
-    width: 20px;
-    height: 20px;
-}
-
-.h .h-basic {
-    float: left;
-    color: #fff;
-    font-size: 0;
-    margin: 10px 0 0 20px;
-}
-
-.h #h-name {
-    display: inline-block;
-    margin-right: 5px;
-    font-weight: 700;
-    line-height: 18px;
-    font-size: 18px;
-    vertical-align: middle;
-}
-
-.h .gender.male {
-    display: inline-block;
-    background-position: -212px -472px;
-}
-
-.h .gender {
-    display: none;
-    width: 21px;
-    height: 18px;
-    margin-right: 5px;
-    vertical-align: middle;
-    background-position: -212px -922px;
-}
-
-.icon {
-    vertical-align: middle;
-    background-repeat: no-repeat;
-}
-
-.h .m-level[lvl="6"] {
-    background-position: -21px -226px;
-}
-
-.h .m-level {
-    display: inline-block;
-    width: 28px;
-    height: 16px;
-    margin-right: 5px;
-    vertical-align: middle;
-}
-
-.h .h-vipType {
-    display: inline-block;
-    height: 16px;
-    line-height: 16px;
-    border-radius: 4px;
-    font-size: 12px;
-    color: #fff;
-    padding: 0 5px;
-    background-color: #f45a8d;
-    vertical-align: middle;
-    margin-right: 5px;
-}
-
-.h .h-fans-icon {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-}
-
-.h .h-fans-icon .h-fans-text {
-    display: block;
-    width: 20px;
-    height: 16px;
-    line-height: 14px;
-    font-size: 12px;
-    color: #ff85ad;
-    background: #fff;
-    border: 1px solid #ff85ad;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.h .h-fans-icon .fans-hover-tip {
-    position: absolute;
-    display: none;
-    top: -29px;
-    left: 5px;
-    width: 138px;
-    padding: 0 12px;
-    font-size: 12px;
-    color: #ff85ad;
-    background: #fff;
-    border: 1px solid #ff85ad;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.h .h-fans-icon .fans-hover-tip .tip-inner {
-    font-size: 12px;
-    color: #505050;
-    line-height: 20px;
-}
-
-.h .h-fans-icon:hover .fans-hover-tip {
-    display: block;
-}
-
-.h .h-fans-icon .fans-hover-tip:after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 5px;
-    width: 7px;
-    height: 7px;
-    border: 1px solid #ff85ad;
-    border-top: none;
-    border-left: none;
-    transform: rotate(45deg);
-    background-color: #fff;
-}
-
-.h .h-basic .h-basic-spacing {
-    margin-top: 8px;
-}
-
-.h .h-sign {
-    background: transparent;
-    border-radius: 4px;
-    border: none;
-    box-shadow: none;
-    color: #d6dee4;
-    font-size: 12px;
-    font-family: Microsoft Yahei;
-    line-height: 26px;
-    height: 26px;
-    margin-left: -5px;
-    padding: 0 5px;
-    position: relative;
-    top: -1px;
-    width: 730px;
-    font-weight: 400;
-}
-
-.h #h-sign:hover {
-    background: hsla(0, 0%, 100%, .2);
-    box-shadow: 0 0 0 1px hsla(0, 0%, 100%, .5);
-}
-
-.h #h-sign {
-    background: transparent;
-    border-radius: 4px;
-    border: none;
-    box-shadow: none;
-    color: #d6dee4;
-    font-size: 12px;
-    font-family: Microsoft Yahei;
-    line-height: 26px;
-    height: 26px;
-    margin-left: -5px;
-    padding: 0 5px;
-    position: relative;
-    top: -1px;
-    width: 730px;
-}
-
-.space_input {
-    line-height: 28px;
-    height: 28px;
-    padding: 0 10px;
-    transition: all .3s ease;
-    vertical-align: top;
-    border: 1px solid #ccd0d7;
-    border-radius: 0;
-}
-
-.h .h-action {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: 1;
-}
-
-.h .h-f-btn {
-    background: rgba(0, 0, 0, .45);
-    box-shadow: 0 0 0 2px hsla(0, 0%, 100%, .3);
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 14px;
-    float: left;
-    text-align: center;
-    margin: 0 20px 17px 0;
-    width: 76px;
-    line-height: 30px;
-}
-
-.h .h-f-btn:hover {
-    background: rgba(0, 0, 0, .5);
-}
-
-.h .h-f-btn .icon-arrow {
-    margin-left: 4px;
-    background-position: -1369px -214px;
-}
-
-.h-btn-box {
-    position: relative;
-}
-
-.icon-arrow {
-    width: 16px;
-    height: 20px;
-    background-position: -1305px -215px;
-}
-
-.be-dropdown {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.be-dropdown-menu {
-    position: absolute;
-    top: 40px;
-    z-index: 10;
-    padding: 6px 0;
-    background-color: #fff;
-    border: 1px solid #e5e9ef;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .14);
-}
-
-.be-dropdown-item {
-    height: 40px;
-    padding: 0 20px;
-    line-height: 40px;
-    text-align: center;
-    font-size: 14px;
-    color: #222;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    transition: background-color .2s ease;
-    cursor: pointer;
-}
-
-.be-dropdown-item:hover {
-    color: #00a1d6;
-    background-color: #e5e9ef;
-}
-
-.zoom-enter,
-.zoom-leave-to {
-    transform: scaleY(0);
-    opacity: 0;
-}
-
-.zoom-enter-active,
-.zoom-leave-active {
-    transition: transform .3s, opacity .3s;
-}
-
-.h .h-add-to-black {
-    float: left;
-    margin-right: 18px;
-    height: 30px;
-}
-
-.be-dropdown-trigger {
-    width: 24px;
-    height: 24px;
-    margin: auto;
-    text-align: center;
-}
-
-.h .h-add-to-black .be-dropdown-trigger {
-    width: 30px;
-    height: 30px;
-}
-
-.be-dropdown-trigger .bili-icon_caozuo_xiangyou-copy {
-    display: block;
-    line-height: 24px;
-    color: #222;
-    font-size: 24px;
-    color: #999;
-}
-
-.h .h-add-to-black .bili-icon_caozuo_xiangyou-copy {
-    color: #fff;
-    font-size: 30px;
-    line-height: 30px;
-}
-
-.modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 20000;
-}
-
-.modal-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1010;
-    background-color: rgba(0, 0, 0, .5);
-}
-
-.modal-wrapper {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 300px;
-    margin: 0 auto;
-    word-break: break-all;
-    line-height: 22px;
-    z-index: 1011;
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .16);
-    border-radius: 4px;
-    transition: box-shadow .2s linear;
-}
-
-.modal-wrapper .modal-header {
-    position: relative;
-    font: 12px/1.11 Microsoft Yahei, Tahoma, Arial, Helvetica, STHeiti;
-}
-
-.modal-wrapper .modal-header-close {
-    position: absolute;
-    text-decoration: none;
-    top: 13px;
-    right: 12px;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-}
-
-.modal-wrapper .modal-title {
-    display: block;
-    font-size: 16px;
-    line-height: 48px;
-    padding: 0 20px;
-    border-bottom: 1px solid #ddd;
-}
-
-.modal-wrapper .modal-body {
-    padding: 30px 60px;
-    font-size: 14px;
-    text-align: center;
-    vertical-align: middle;
-    min-width: 9em;
-}
-
-.h .modal-wrapper .modal-body {
-    padding: 30px 40px !important;
-}
-
-.h .report-popup-tip {
-    line-height: 18px;
-    font-size: 12px;
-    color: #99a2aa;
-    text-align: left;
-}
-
-.h .report-popup-list {
-    margin-top: 18px;
-    font-size: 0;
-}
-
-.h .report-popup-item {
-    float: left;
-    width: 90px;
-    line-height: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    text-align: left;
-    white-space: nowrap;
-}
-
-.h .report-popup-item-checkbox {
-    position: relative;
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    vertical-align: middle;
-    border: 1px solid #bec3cc;
-    border-radius: 2px;
-    font-size: 0;
-}
-
-.h .report-popup-item:nth-child(2n) {
-    margin-left: 30px;
-}
-
-.h .report-popup-item-text {
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 14px;
-    color: #222;
-    vertical-align: middle;
-}
-
-.modal-footer {
-    padding: 0 0 30px;
-    text-align: center;
-    font-size: 0;
-    white-space: nowrap;
-}
-
-.btn.primary {
-    color: #fff;
-    background-color: #00a1d6;
-    border-color: #00a1d6;
-}
-
-.btn.default {
-    margin-right: 0;
-    color: #666;
-    background-color: #fff;
-    border-color: #d9d9d9;
-}
-
-.btn {
-    display: inline-block;
-    touch-action: manipulation;
-    padding: 0 10px;
-    margin-right: 20px;
-    line-height: 30px;
-    min-width: 70px;
-    transition: all .2s ease;
-    font-size: 0;
-    color: #666;
-    text-align: center;
-    vertical-align: middle;
-    outline: none;
-    background-color: #fff;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    cursor: pointer;
-    white-space: nowrap;
-    box-sizing: border-box;
-}
-
-.btn-content {
-    font-size: 12px;
-    vertical-align: top;
-}
-
-.btn:focus,
-.btn:hover {
-    color: #00a1d6;
-    background-color: #fff;
-    border-color: #00a1d6;
-}
-
-.btn.primary:focus,
-.btn.primary:hover {
-    background-color: #00b5e5;
-    color: #fff;
-    border-color: #00b5e5;
-}
-
-.h .report-popup-item.checked .report-popup-item-checkbox {
-    background: #00a1d6;
-    border-color: #00a1d6;
-}
-
-.h .report-popup-item.checked .report-popup-item-checkbox:before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 6px;
-    left: 3px;
-    width: 0;
-    height: 5px;
-    border-left: 2px solid #fff;
-    transform: rotate(-45deg);
-}
-
-.h .report-popup-item.checked .report-popup-item-checkbox:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 2px;
-    left: 9px;
-    width: 0;
-    height: 11px;
-    border-left: 2px solid #fff;
-    transform: rotate(45deg);
-}
-
-.n {
-    margin-bottom: 10px;
-}
-
-.n .n-inner {
-    height: 66px;
-    background: #fff;
-    box-shadow: 0 0 0 1px #eee;
-    border-radius: 0 0 4px 4px;
-    padding: 0 20px;
-    font-size: 0;
-}
 </style>
