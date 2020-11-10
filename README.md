@@ -30,7 +30,11 @@ Bilibili-FE 哔哩哔哩
 
 ## 效果展示
 
-​		暂无
+![个人空间](https://github.com/chinchan-mole/My-Images/blob/master/1.png)
+
+![个人空间](https://github.com/chinchan-mole/My-Images/blob/master/2.png)
+
+![主页](https://github.com/chinchan-mole/My-Images/blob/master/3.png)
 
 ## 项目部署到本地
 
@@ -44,7 +48,7 @@ npm run build  // 打包项目
 ## 项目计划
 1、主页展示（done）
 
-2、个人空间（ing...）
+2、个人空间（ing...已完成index）
 
 3、动态（plan）
 
