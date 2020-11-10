@@ -9,6 +9,8 @@ import SpaceBangumi from '../components/space/bangumi.vue'
 import SpaceFollow from '../components/space/follow.vue'
 import SpaceFans from '../components/space/fans.vue'
 import SpaceIndex from '../components/space/index.vue'
+import SpaceArticle from '../components/space/article.vue'
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -52,7 +54,11 @@ const routes = [{
       path: '/space/:id/fans',
       name: 'spaceFans',
       component: SpaceFans
-    }, ]
+    }, {
+      path: '/space/:id/article',
+      name: 'spaceArticle',
+      component: SpaceArticle
+    },]
   }
 ]
 

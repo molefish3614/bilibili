@@ -134,7 +134,7 @@
             </div>
         </div>
     </div>
-    <div id="navigator" class="n n-fix">
+    <div id="navigator" class="n n-fix" :class="showFixedNav ? 'fixed' : ''">
         <div class="wrapper">
             <div class="n-inner clearfix">
                 <div class="n-tab-links">
@@ -176,15 +176,13 @@
             </div>
         </div>
     </div>
-    <div class="s-space">
-        <router-view></router-view>
-    </div>
 </div>
 </template>
 
 <script>
 import {
-    debounce
+    debounce,
+    throttle
 } from '@/utils/index.js'
 export default {
     data() {
@@ -259,20 +257,28 @@ export default {
                     haveFansIcon: true,
                     detail: '/fansicon/help'
                 }
-            }
+            },
+            showFixedNav: false,
         }
     },
     created() {
         this.inputSign = this.userInfo.sign;
     },
     mounted() {
+        let that = this;
         this.tabLinks.forEach((item, i, arr) => {
             let dom = document.querySelector('#' + item.id);
             this.tabsOffset.push({
                 left: dom.offsetLeft,
                 width: dom.offsetWidth
             });
-        })
+        });
+        window.addEventListener('scroll', throttle(function () {
+            if (document.documentElement.scrollTop < 324 && that.showFixedNav === false) return;
+            if (document.documentElement.scrollTop >= 324 && that.showFixedNav === true) return;
+            if (document.documentElement.scrollTop < 324 && that.showFixedNav === true) that.showFixedNav = false;
+            if (document.documentElement.scrollTop >= 324 && that.showFixedNav === false) that.showFixedNav = true;
+        }, 100));
     },
     methods: {
         changeSign() {

@@ -1,15 +1,8 @@
-.clearfix {
-    display: block;
+.s-body {
+    background: #f4f5f7;
 }
 
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
+/* header */
 .h {
     position: relative;
     z-index: 10;
@@ -789,6 +782,10 @@
 .n-fix .n-avatar img {
     display: block;
     width: 24px;
+}
+
+.n-fix.fixed {
+    transform: translateY(0);
 }
 
 .n .n-data.active .n-data-k,

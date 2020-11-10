@@ -53,7 +53,7 @@ i {
 
 /* 去掉Vue路由标签发光 */
 .router-link-active {
-    text-shadow: none!important;
+    text-shadow: none !important;
 }
 
 input,
@@ -68,4 +68,22 @@ textarea {
 .hover-blue:hover a {
     color: #00a1d6 !important;
     transition: color .3s !important;
+}
+
+.clearfix {
+    display: block;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+body,
+input,
+textarea {
+    font-family: Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
